@@ -43,6 +43,27 @@
 </div>
 <p>Shaders in this case are SPIR-V objects. From the given directories, Chamferwm will look for files with <code class="docutils literal notranslate"><span class="pre">.spv</span></code> extension. The path given first in the command line will have a higher priority to the next one, and between conflicting filenames the shader from the directory that was given first will be picked.</p>
 </div>
+<div class="section" id="basic-appearance">
+<span id="shaders-basic-appearance"></span><h2>Basic Appearance<a class="headerlink" href="#basic-appearance" title="Permalink to this headline">¶</a></h2>
+<p>The appearance of clients and their effects such as decorations, borders and shadows is fully controlled by either adjusting the parameters of the given default shaders, or by designing custom solutions by modifying existing or creating new shaders. Since the appearance of the clients can be completely arbitrary and is dictated by the shaders only, there are no style specific configuration options in the configuration script such as color, border width or anything that might not be relevant to a custom design. Instead, these are intended to be defined directly within the shader source.</p>
+<p>The look of the stock appearance of Chamferwm is given by the fragment shader portion of <code class="docutils literal notranslate"><span class="pre">frame.hlsl</span></code> (compiled <code class="docutils literal notranslate"><span class="pre">frame_fragment.spv</span></code>). By adjusting a set of constants defined in the HLSL source, user may control some of the basic features of the stock appearance:</p>
+<dl class="field-list simple">
+<dt class="field-odd"><code class="docutils literal notranslate"><span class="pre">borderColor</span></code></dt>
+<dd class="field-odd"><p>Color of the client borders</p>
+</dd>
+<dt class="field-even"><code class="docutils literal notranslate"><span class="pre">focusColor</span></code></dt>
+<dd class="field-even"><p>Color of the focus indicator</p>
+</dd>
+<dt class="field-odd"><code class="docutils literal notranslate"><span class="pre">taskColor</span></code></dt>
+<dd class="field-odd"><p>Color of the task selection indicator</p>
+</dd>
+</dl>
+<p>In order to apply the changes, recompile the fragment shader using</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>glslc --target-env<span class="o">=</span>vulkan --fshader-stage<span class="o">=</span>fragment -O -x hlsl -o frame_fragment.spv -DSHADER_STAGE_PS frame.hlsl
+</pre></div>
+</div>
+<p>Once successfully compiled, the output object <code class="docutils literal notranslate"><span class="pre">frame_fragment.spv</span></code> can then be placed in one of the shader lookup directories.</p>
+</div>
 <div class="section" id="rendering-pipeline">
 <h2>Rendering Pipeline<a class="headerlink" href="#rendering-pipeline" title="Permalink to this headline">¶</a></h2>
 <p>Chamferwm requires three different shaders for its rendering pipeline:</p>
@@ -65,8 +86,8 @@
 </div>
 <p>The actual appearance is given by the fragment shader. The fragment shader identifies the fragments rasterized from surfaces given by the geometry shader, and paints the shadow, the window border and the client contents on them. The results are alpha-blended on previously rendered surfaces.</p>
 </div>
-<div class="section" id="customization">
-<h2>Customization<a class="headerlink" href="#customization" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="advanced-customization">
+<h2>Advanced Customization<a class="headerlink" href="#advanced-customization" title="Permalink to this headline">¶</a></h2>
 <p>The shader sources provided with Chamferwm can be found in the source tree. The provided shaders are written in HLSL, although any other language that compiles to SPIR-V, such as GLSL may be used. Following shader sources are provided:</p>
 <dl class="field-list simple">
 <dt class="field-odd">chamfer.hlsl</dt>
@@ -89,27 +110,6 @@
 <p>to compile a fragment shader <code class="docutils literal notranslate"><span class="pre">fragmentShader.hlsl</span></code> written in HLSL into a SPIR-V object <code class="docutils literal notranslate"><span class="pre">fragmentShader.spv</span></code> as an example. The output object should be placed into one of the command line provided shader lookup directories for it to become available.</p>
 <p>The details on how to write shaders are beyond the scope of this manual. However, user may use the provided <code class="docutils literal notranslate"><span class="pre">default.hlsl</span></code>, which contains all the relevant shader stages in their simplest form to be used with Chamferwm, as a starting point.</p>
 <p>In order to use shaders found in the lookup directories, they must be assigned to a client in the configuration script. See <a class="reference internal" href="config.html#chamfer.Container.vertexShader" title="chamfer.Container.vertexShader"><code class="xref py py-attr docutils literal notranslate"><span class="pre">chamfer.Container.vertexShader</span></code></a> and the respective attributes for geometry and fragment shaders on how to do this. All attributes must point to a valid shader object.</p>
-</div>
-<div class="section" id="basic-appearance">
-<span id="shaders-basic-appearance"></span><h2>Basic Appearance<a class="headerlink" href="#basic-appearance" title="Permalink to this headline">¶</a></h2>
-<p>The appearance of clients and their effects such as decorations, borders and shadows is fully controlled by either adjusting the parameters of the given default shaders, or by designing custom solutions by modifying existing or creating new shaders. Since the appearance of the clients can be completely arbitrary and is dictated by the shaders only, there are no style specific configuration options in the configuration script such as color, border width or anything that might not be relevant to a custom design. Instead, these are intended to be defined directly within the shader source.</p>
-<p>The look of the stock appearance of Chamferwm is given by the fragment shader portion of <code class="docutils literal notranslate"><span class="pre">frame.hlsl</span></code> (compiled <code class="docutils literal notranslate"><span class="pre">frame_fragment.spv</span></code>). By adjusting a set of constants defined in the HLSL source, user may control some of the basic features of the stock appearance:</p>
-<dl class="field-list simple">
-<dt class="field-odd"><code class="docutils literal notranslate"><span class="pre">borderColor</span></code></dt>
-<dd class="field-odd"><p>Color of the client borders</p>
-</dd>
-<dt class="field-even"><code class="docutils literal notranslate"><span class="pre">focusColor</span></code></dt>
-<dd class="field-even"><p>Color of the focus indicator</p>
-</dd>
-<dt class="field-odd"><code class="docutils literal notranslate"><span class="pre">taskColor</span></code></dt>
-<dd class="field-odd"><p>Color of the task selection indicator</p>
-</dd>
-</dl>
-<p>In order to apply the changes, recompile the fragment shader using</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>glslc --target-env<span class="o">=</span>vulkan --fshader-stage<span class="o">=</span>fragment -O -x hlsl -o frame_fragment.spv -DSHADER_STAGE_PS frame.hlsl
-</pre></div>
-</div>
-<p>Once successfully compiled, the output object <code class="docutils literal notranslate"><span class="pre">frame_fragment.spv</span></code> can then be placed in one of the shader lookup directories.</p>
 </div>
 </div>
 
@@ -136,9 +136,9 @@
 <li class="toctree-l1"><a class="reference internal" href="config.html">Configuration</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Shaders and Appearance</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#shader-paths">Shader Paths</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#rendering-pipeline">Rendering Pipeline</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#customization">Customization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#basic-appearance">Basic Appearance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#rendering-pipeline">Rendering Pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#advanced-customization">Advanced Customization</a></li>
 </ul>
 </li>
 </ul>
