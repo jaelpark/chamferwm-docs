@@ -1,0 +1,255 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Key Bindings &#8212; chamferwm 221 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Configuration" href="config.html" />
+    <link rel="prev" title="Setup and Running" href="setup.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="key-bindings">
+<h1>Key Bindings<a class="headerlink" href="#key-bindings" title="Permalink to this headline">¶</a></h1>
+<p>The default key bindings are defined as follows. To change any of the key binding, or to define new ones, see <a class="reference internal" href="config.html#config-key-bindings"><span class="std std-ref">Changing shortcuts</span></a> in the configuration section.</p>
+<div class="section" id="movement-and-focus">
+<h2>Movement and focus<a class="headerlink" href="#movement-and-focus" title="Permalink to this headline">¶</a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">mod+h</dt>
+<dd class="field-odd"><p>Focus container on left / Focus most recently used tiling container</p>
+</dd>
+<dt class="field-even">mod+l</dt>
+<dd class="field-even"><p>Focus container on right / Focus most recently used tiling container</p>
+</dd>
+<dt class="field-odd">mod+k</dt>
+<dd class="field-odd"><p>Focus container above / Focus most recently used tiling container</p>
+</dd>
+<dt class="field-even">mod+j</dt>
+<dd class="field-even"><p>Focus container below / Focus most recently used tiling container</p>
+</dd>
+<dt class="field-odd">mod+a</dt>
+<dd class="field-odd"><p>Focus parent</p>
+</dd>
+<dt class="field-even">mod+s</dt>
+<dd class="field-even"><p>Focus child</p>
+</dd>
+<dt class="field-odd">Alt+Tab</dt>
+<dd class="field-odd"><p>Focus most recently used floating container / Cycle floating containers in MRU order (while holding Alt)</p>
+</dd>
+<dt class="field-even">Super+Tab</dt>
+<dd class="field-even"><p>Focus most recently used tiling containner / Cycle tiling containers in MRU order (while holding Super). A container focused more than 0.5 seconds is considered “used”.</p>
+</dd>
+<dt class="field-odd">mod+Shift+l</dt>
+<dd class="field-odd"><p>Swap container to right</p>
+</dd>
+<dt class="field-even">mod+Shift+h</dt>
+<dd class="field-even"><p>Swap container to left</p>
+</dd>
+<dt class="field-odd">mod+Shift+k</dt>
+<dd class="field-odd"><p>Swap container above</p>
+</dd>
+<dt class="field-even">mod+Shift+j</dt>
+<dd class="field-even"><p>Swap container below</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="advanced-movement">
+<h2>Advanced movement<a class="headerlink" href="#advanced-movement" title="Permalink to this headline">¶</a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">mod+y</dt>
+<dd class="field-odd"><p>Mark container for movement</p>
+</dd>
+<dt class="field-even">mod+Shift+y</dt>
+<dd class="field-even"><p>Mark next container for movement</p>
+</dd>
+<dt class="field-odd">mod+p</dt>
+<dd class="field-odd"><p>Place marked containers under (as a child) of the currently focused container</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="gouping-and-parenting">
+<h2>Gouping and parenting<a class="headerlink" href="#gouping-and-parenting" title="Permalink to this headline">¶</a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">mod+w</dt>
+<dd class="field-odd"><p>Group every sibling container of the currently focused container under a new parent next to the focus</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="layout-splits-and-fullscreen">
+<h2>Layout, splits and fullscreen<a class="headerlink" href="#layout-splits-and-fullscreen" title="Permalink to this headline">¶</a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">mod+e</dt>
+<dd class="field-odd"><p>Shift layout between horizontal and vertical splitting</p>
+</dd>
+<dt class="field-even">mod+v</dt>
+<dd class="field-even"><p>Create a vertical split. Launch application to place is under newly created branch. To place existing applications, mark and paste (mod+y, mod+p).</p>
+</dd>
+<dt class="field-odd">mod+onehalf</dt>
+<dd class="field-odd"><p>–</p>
+</dd>
+<dt class="field-even">mod+f</dt>
+<dd class="field-even"><p>Enter or leave fullscreen mode</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="workspace-dimensions">
+<h2>Workspace dimensions<a class="headerlink" href="#workspace-dimensions" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="client-dimensions">
+<h2>Client dimensions<a class="headerlink" href="#client-dimensions" title="Permalink to this headline">¶</a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">mod+r</dt>
+<dd class="field-odd"><p>Reset container size and placement</p>
+</dd>
+<dt class="field-even">mod+minus</dt>
+<dd class="field-even"><p>Decrease container size horizontally</p>
+</dd>
+<dt class="field-odd">mod+plus</dt>
+<dd class="field-odd"><p>Increase container size horizontally</p>
+</dd>
+<dt class="field-even">mod+Shift+minus</dt>
+<dd class="field-even"><p>Decrease container size vertically</p>
+</dd>
+<dt class="field-odd">mod+Shift+plus</dt>
+<dd class="field-odd"><p>Increase container size vertically</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="launching-and-closing-applications">
+<h2>Launching and closing applications<a class="headerlink" href="#launching-and-closing-applications" title="Permalink to this headline">¶</a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">mod+Shift+q</dt>
+<dd class="field-odd"><p>Close client window</p>
+</dd>
+<dt class="field-even">mod+Enter</dt>
+<dd class="field-even"><p>Launch terminal (default terminal needs to be set in the configuration)</p>
+</dd>
+<dt class="field-odd">Super+1</dt>
+<dd class="field-odd"><p>Launch browser (default browser needs to be set in the configuration)</p>
+</dd>
+<dt class="field-even">Super+2</dt>
+<dd class="field-even"><p>Launch browser with private window</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="audio-screen-etc">
+<h2>Audio, screen etc.<a class="headerlink" href="#audio-screen-etc" title="Permalink to this headline">¶</a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">XF86_AudioRaiseVolume</dt>
+<dd class="field-odd"><p>Increase volume by 5% (controlled by PulseAudio - requires pulsectl Python module by default).</p>
+</dd>
+<dt class="field-even">XF86_AudioLowerVolume</dt>
+<dd class="field-even"><p>Decrease volume by 5%</p>
+</dd>
+<dt class="field-odd">XF86_MonBrightnessUp</dt>
+<dd class="field-odd"><p>Increase screen brightness by 20% (requires xbacklight by default)</p>
+</dd>
+<dt class="field-even">XF86_MonBrightnessDown</dt>
+<dd class="field-even"><p>Decrease screen brightness by 20%</p>
+</dd>
+</dl>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">chamferwm</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="setup.html">Setup and Running</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Key Bindings</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#movement-and-focus">Movement and focus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#advanced-movement">Advanced movement</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gouping-and-parenting">Gouping and parenting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#layout-splits-and-fullscreen">Layout, splits and fullscreen</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#workspace-dimensions">Workspace dimensions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#client-dimensions">Client dimensions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#launching-and-closing-applications">Launching and closing applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#audio-screen-etc">Audio, screen etc.</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shaders.html">Shaders and Appearance</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="setup.html" title="previous chapter">Setup and Running</a></li>
+      <li>Next: <a href="config.html" title="next chapter">Configuration</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Jasper Parkkila.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

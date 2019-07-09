@@ -1,0 +1,177 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Chamferwm &#8212; chamferwm 221 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Setup and Running" href="setup.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="chamferwm">
+<h1>Chamferwm<a class="headerlink" href="#chamferwm" title="Permalink to this headline">¶</a></h1>
+<p>Chamferwm is a dynamic tiling window manager with a built-in Vulkan based compositor. Besides aimig to be a fully featured and highly configurable window manager, significant effort is put to provide a complete control over the appearance of the desktop. With its shader based customization system, Chamferwm enables rendering of arbitrary window decorations, borders and effects, maximizing the potential for visual personalization. At the same time, employment of the latest graphics APIs makes Chamferwm an experimental test platform for future technologies, pushing ultimate extensibility and compositing performance.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In case of open source graphics, the most recent version of Mesa is higly recommended. With older versions of Mesa, user may experience glitches or other graphical corruption.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><code class="docutils literal notranslate"><span class="pre">VK_EXT_image_drm_format_modifier</span></code>, a vital Vulkan extension required to import DRM format modifiers from DMA buffers, is currently unavailable. As a result, Chamferwm must rely on shared memory access to read client window contents. Using shared memory access may be detrimental to performance at high client resolutions. This limination will persist for as long as the required extension remains unimplemented.</p>
+</div>
+</div>
+<div class="section" id="features">
+<h1>Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h1>
+<p><strong>Window manager</strong>:</p>
+<ul class="simple">
+<li><p>Dynamic horizontal and vertical tiling with gaps and stacking</p></li>
+<li><p>Specify container size restrictions, overlap when necessary</p></li>
+<li><p>Resize and translate individual containers in their place while keeping the surrounding layout</p></li>
+<li><p>Floating containers and automatic dialog, dock, widget etc. handling</p></li>
+<li><p>Yank and paste containers to move them within the tree hierarchy along with typical move operations</p></li>
+<li><p>Configuration with python, scriptable behaviour with client and container specific callbacks</p></li>
+<li><p>Fully keyboard controllable</p></li>
+</ul>
+<p><strong>Compositor</strong>:</p>
+<ul class="simple">
+<li><p>Vulkan renderer</p></li>
+<li><p>Arbitrary window decorations and borders with user supplied shaders</p></li>
+<li><p>Per-client materials</p></li>
+<li><p>Optional, alternatively use any other external compositor</p></li>
+</ul>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">Setup and Running</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="setup.html#building-with-meson">Building with Meson</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setup.html#installing-from-aur">Installing from AUR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setup.html#starting">Starting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setup.html#command-line-arguments">Command line Arguments</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bindings.html">Key Bindings</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="bindings.html#movement-and-focus">Movement and focus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bindings.html#advanced-movement">Advanced movement</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bindings.html#gouping-and-parenting">Gouping and parenting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bindings.html#layout-splits-and-fullscreen">Layout, splits and fullscreen</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bindings.html#workspace-dimensions">Workspace dimensions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bindings.html#client-dimensions">Client dimensions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bindings.html#launching-and-closing-applications">Launching and closing applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bindings.html#audio-screen-etc">Audio, screen etc.</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="config.html#configuration-files">Configuration Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config.html#changing-shortcuts">Changing shortcuts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config.html#launching-applications">Launching Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config.html#python-api">Python API</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="shaders.html">Shaders and Appearance</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="shaders.html#shader-paths">Shader Paths</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shaders.html#rendering-pipeline">Rendering Pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shaders.html#customization">Customization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shaders.html#basic-appearance">Basic Appearance</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="#">chamferwm</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">Setup and Running</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bindings.html">Key Bindings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shaders.html">Shaders and Appearance</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="#">Documentation overview</a><ul>
+      <li>Next: <a href="setup.html" title="next chapter">Setup and Running</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Jasper Parkkila.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

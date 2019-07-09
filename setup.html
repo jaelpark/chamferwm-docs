@@ -1,0 +1,201 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Setup and Running &#8212; chamferwm 221 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Key Bindings" href="bindings.html" />
+    <link rel="prev" title="Chamferwm" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="setup-and-running">
+<h1>Setup and Running<a class="headerlink" href="#setup-and-running" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="building-with-meson">
+<h2>Building with Meson<a class="headerlink" href="#building-with-meson" title="Permalink to this headline">¶</a></h2>
+<p>Install the following prerequisities:</p>
+<ul class="simple">
+<li><p>XCB libraries (<em>core window management and X server interaction</em>)</p></li>
+<li><p>Vulkan SDK (<em>compositor</em>)</p></li>
+<li><p>glm (<em>compositor maths</em>)</p></li>
+<li><p>Python 3.6+ and boost modules (<em>configuration API layer</em>)</p></li>
+<li><p>python-xlib (<em>configuration script, keysyms</em>)</p></li>
+<li><p>meson and ninja (<em>build system</em>)</p></li>
+<li><p>(git)</p></li>
+<li><p><a class="reference external" href="https://github.com/google/shaderc">shaderc Shader compiler</a> (<em>shader compiler</em>)</p></li>
+</ul>
+<p>Clone the source tree:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/jaelpark/chamferwm.git
+</pre></div>
+</div>
+<p>Inside the source tree, create a build directory and run Meson to configure the build:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir build
+meson --buildtype<span class="o">=</span>release build
+</pre></div>
+</div>
+<p>Move to the build directory and build:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> build
+ninja
+</pre></div>
+</div>
+<p>Once compiled, the build directory will contain the executable and shader objects (.spv files). Put the following line to your .xinitrc, with <code class="docutils literal notranslate"><span class="pre">/path/to/</span></code> replaced with the real location in filesystem.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">exec</span> /path/to/build/chamfer --config<span class="o">=</span>/path/to/config/config.py --shader-path<span class="o">=</span>/path/to/shaders/
+</pre></div>
+</div>
+</div>
+<div class="section" id="installing-from-aur">
+<h2>Installing from AUR<a class="headerlink" href="#installing-from-aur" title="Permalink to this headline">¶</a></h2>
+<p>For Arch Linux, a PKGBUILD is available from <a class="reference external" href="https://aur.archlinux.org/packages/chamfer-git/">AUR</a>. The package from AUR will install a default configuration and the precompiled shaders to <code class="docutils literal notranslate"><span class="pre">/usr/share/chamfer/</span></code>. Copy the configuration to another location to make modifications. Once ready, put the following line to your .xinitrc:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">exec</span> chamfer --config<span class="o">=</span>/usr/share/chamfer/config/config.py --shader-path<span class="o">=</span>/usr/share/chamfer/shaders/
+</pre></div>
+</div>
+<p>where the path to <code class="docutils literal notranslate"><span class="pre">config.py</span></code> should be changed if configuration was copied for modifications.</p>
+</div>
+<div class="section" id="starting">
+<h2>Starting<a class="headerlink" href="#starting" title="Permalink to this headline">¶</a></h2>
+<p>With the <code class="docutils literal notranslate"><span class="pre">exec</span></code> line in place in .xinitrc, X server together with Chamferwm may be started by running <code class="docutils literal notranslate"><span class="pre">startx</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When multiple rendering devices are available, make the choice with <code class="docutils literal notranslate"><span class="pre">--device-index=n</span></code>, where <em>n</em> is the zero-based index of the device (default = 0).</p>
+</div>
+<p>To run the window manager without the integrated compositor, use</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">exec</span> chamfer --config<span class="o">=</span>/path/to/config/config.py -n
+</pre></div>
+</div>
+<p>In this case, any other external compositor may be used.</p>
+</div>
+<div class="section" id="command-line-arguments">
+<h2>Command line Arguments<a class="headerlink" href="#command-line-arguments" title="Permalink to this headline">¶</a></h2>
+<dl class="option-list">
+<dt><kbd><span class="option">-h</span>, <span class="option">--help</span></kbd></dt>
+<dd><p>Display this help menu</p>
+</dd>
+<dt><kbd><span class="option">-c <var>path</var></span>, <span class="option">--config=<var>path</var></span></kbd></dt>
+<dd><p>Configuration Python script</p>
+</dd>
+</dl>
+<p><strong>Backend</strong></p>
+<dl class="option-list">
+<dt><kbd><span class="option">-d</span>, <span class="option">--debug-backend</span></kbd></dt>
+<dd><p>Create a test environment for the compositor engine without redirection. The application will not act as a window manager.</p>
+</dd>
+</dl>
+<p><strong>Compositor</strong></p>
+<dl class="option-list">
+<dt><kbd><span class="option">-n</span>, <span class="option">--no-compositor</span></kbd></dt>
+<dd><p>Disable compositor.</p>
+</dd>
+<dt><kbd><span class="option">--device-index=<var>id</var></span></kbd></dt>
+<dd><p>GPU to use by its index. By default the first device in the list of enumerated GPUs will be used.</p>
+</dd>
+<dt><kbd><span class="option">-l</span>, <span class="option">--debug-layers</span></kbd></dt>
+<dd><p>Enable Vulkan debug layers.</p>
+</dd>
+<dt><kbd><span class="option">--no-scissoring</span></kbd></dt>
+<dd><p>Disable scissoring optimization.</p>
+</dd>
+<dt><kbd><span class="option">--shader-path=<var>path</var></span></kbd></dt>
+<dd><p>Shader lookup path. SPIR-V shader objects are identified by an ‘.spv’ extension. Multiple paths may be specified.</p>
+</dd>
+</dl>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">chamferwm</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Setup and Running</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#building-with-meson">Building with Meson</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installing-from-aur">Installing from AUR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#starting">Starting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#command-line-arguments">Command line Arguments</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bindings.html">Key Bindings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shaders.html">Shaders and Appearance</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Chamferwm</a></li>
+      <li>Next: <a href="bindings.html" title="next chapter">Key Bindings</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Jasper Parkkila.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

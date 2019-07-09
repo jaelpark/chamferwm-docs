@@ -1,0 +1,189 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Shaders and Appearance &#8212; chamferwm 221 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Configuration" href="config.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="shaders-and-appearance">
+<h1>Shaders and Appearance<a class="headerlink" href="#shaders-and-appearance" title="Permalink to this headline">¶</a></h1>
+<p>Shaders give clients their appearance. They are responsible for rendering client contents and decorations such as borders and shadows. With the default shaders, the clients are rendered with black, slightly rounded (chamfered!) corners. The current focus is indicated by an orange dashed line around the borders. Alternatively, task switching indicator (Alt+Tab, Super+Tab) is shown in a much lighter variant.</p>
+<p>This section describes how to deploy and edit shaders for Chamferwm to customize the appearance of the desktop. To make only basic changes to the stock appearance, such as color or border attributes, see <a class="reference internal" href="#shaders-basic-appearance"><span class="std std-ref">Basic Appearance</span></a>.</p>
+<div class="section" id="shader-paths">
+<h2>Shader Paths<a class="headerlink" href="#shader-paths" title="Permalink to this headline">¶</a></h2>
+<p>Chamferwm will look for compiled shader objects from lookup directories specified by user. User will specify the shader lookup paths with command line parameter <code class="docutils literal notranslate"><span class="pre">--shader-path=[path]</span></code>. More than one path may be given. At least one path must be specificed as there are no preset locations. The following configuration is suggested:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>--shader-path<span class="o">=</span>~/.local/share/chamfer/shaders --shader-path<span class="o">=</span>~/.config/chamfer/shaders/ --shader-path<span class="o">=</span>/usr/share/chamfer/shaders/
+</pre></div>
+</div>
+<p>Shaders in this case are SPIR-V objects. From the given directories, Chamferwm will look for files with <code class="docutils literal notranslate"><span class="pre">.spv</span></code> extension. The path given first in the command line will have a higher priority to the next one, and between conflicting filenames the shader from the directory that was given first will be picked.</p>
+</div>
+<div class="section" id="rendering-pipeline">
+<h2>Rendering Pipeline<a class="headerlink" href="#rendering-pipeline" title="Permalink to this headline">¶</a></h2>
+<p>Chamferwm requires three different shaders for its rendering pipeline:</p>
+<ol class="arabic simple">
+<li><p>Vertex shader</p></li>
+<li><p>Geometry shader</p></li>
+<li><p>Fragment shader</p></li>
+</ol>
+<p>For each client, a single vertex is drawn. This vertex has no attributes, and the default vertex shader of Chamferwm simply passes it through to the geometry shader. From this single vertex the geometry shader then expands the necessary surfaces for the client according to the dimensions provided through the push constants. Push constants are arranged as follows, and are available in all shader stages:</p>
+<div class="literal-block-wrapper docutils container" id="pushconst">
+<div class="code-block-caption"><span class="caption-text">Push constants</span><a class="headerlink" href="#pushconst" title="Permalink to this code">¶</a></div>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="kt">vec2</span> <span class="n">xy0</span><span class="p">;</span> <span class="c1">//normalized top-left corner location</span>
+<span class="kt">vec2</span> <span class="n">xy1</span><span class="p">;</span> <span class="c1">//normalized bottom-right corner location</span>
+<span class="kt">vec2</span> <span class="n">screen</span><span class="p">;</span> <span class="c1">//screen pixel dimensions</span>
+<span class="kt">vec2</span> <span class="n">border</span><span class="p">;</span> <span class="c1">//normalized gap size in x and y directions</span>
+<span class="kt">uint</span> <span class="n">flags</span><span class="p">;</span> <span class="c1">//flags such as whether client is focused</span>
+<span class="kt">float</span> <span class="n">time</span><span class="p">;</span> <span class="c1">//time in seconds since client creation</span>
+</pre></div>
+</div>
+</div>
+<p>The actual appearance is given by the fragment shader. The fragment shader identifies the fragments rasterized from surfaces given by the geometry shader, and paints the shadow, the window border and the client contents on them. The results are alpha-blended on previously rendered surfaces.</p>
+</div>
+<div class="section" id="customization">
+<h2>Customization<a class="headerlink" href="#customization" title="Permalink to this headline">¶</a></h2>
+<p>The shader sources provided with Chamferwm can be found in the source tree. The provided shaders are written in HLSL, although any other language that compiles to SPIR-V, such as GLSL may be used. Following shader sources are provided:</p>
+<dl class="field-list simple">
+<dt class="field-odd">chamfer.hlsl</dt>
+<dd class="field-odd"><p>Common definitions, and the push constants defined according to <a class="reference internal" href="#pushconst"><span class="std std-ref">Push constants</span></a>.</p>
+</dd>
+<dt class="field-even">default.hlsl</dt>
+<dd class="field-even"><p>Basic shaders to draw clients without any decorations or effects. Good starting point for new designs.</p>
+</dd>
+<dt class="field-odd">frame.hlsl</dt>
+<dd class="field-odd"><p>Shaders to draw clients with border and shadow. Stock look of Chamferwm.</p>
+</dd>
+<dt class="field-even">solid.hlsl</dt>
+<dd class="field-even"><p>Simple fragment shader to fill with solid color. Mostly used to draw solid color backgrounds when wallpaper is not set.</p>
+</dd>
+</dl>
+<p>Some of the sources contain portions for more than one shader stage, guarded by preprocessing directives. The build system for Chamferwm preprocesses and compiles the sources into one or more SPIR-V objects. User may also manually invoke a shader compiler (such as glslc also used by default) in order to deploy any modifications and additions:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>glslc --target-env<span class="o">=</span>vulkan --fshader-stage<span class="o">=</span>fragment -O -x hlsl -o fragmentShader.spv fragmentShader.hlsl
+</pre></div>
+</div>
+<p>to compile a fragment shader <code class="docutils literal notranslate"><span class="pre">fragmentShader.hlsl</span></code> written in HLSL into a SPIR-V object <code class="docutils literal notranslate"><span class="pre">fragmentShader.spv</span></code> as an example. The output object should be placed into one of the command line provided shader lookup directories for it to become available.</p>
+<p>The details on how to write shaders are beyond the scope of this manual. However, user may use the provided <code class="docutils literal notranslate"><span class="pre">default.hlsl</span></code>, which contains all the relevant shader stages in their simplest form to be used with Chamferwm, as a starting point.</p>
+<p>In order to use shaders found in the lookup directories, they must be assigned to a client in the configuration script. See <a class="reference internal" href="config.html#chamfer.Container.vertexShader" title="chamfer.Container.vertexShader"><code class="xref py py-attr docutils literal notranslate"><span class="pre">chamfer.Container.vertexShader</span></code></a> and the respective attributes for geometry and fragment shaders on how to do this. All attributes must point to a valid shader object.</p>
+</div>
+<div class="section" id="basic-appearance">
+<span id="shaders-basic-appearance"></span><h2>Basic Appearance<a class="headerlink" href="#basic-appearance" title="Permalink to this headline">¶</a></h2>
+<p>The appearance of clients and their effects such as decorations, borders and shadows is fully controlled by either adjusting the parameters of the given default shaders, or by designing custom solutions by modifying existing or creating new shaders. Since the appearance of the clients can be completely arbitrary and is dictated by the shaders only, there are no style specific configuration options in the configuration script such as color, border width or anything that might not be relevant to a custom design. Instead, these are intended to be defined directly within the shader source.</p>
+<p>The look of the stock appearance of Chamferwm is given by the fragment shader portion of <code class="docutils literal notranslate"><span class="pre">frame.hlsl</span></code> (compiled <code class="docutils literal notranslate"><span class="pre">frame_fragment.spv</span></code>). By adjusting a set of constants defined in the HLSL source, user may control some of the basic features of the stock appearance:</p>
+<dl class="field-list simple">
+<dt class="field-odd"><code class="docutils literal notranslate"><span class="pre">borderColor</span></code></dt>
+<dd class="field-odd"><p>Color of the client borders</p>
+</dd>
+<dt class="field-even"><code class="docutils literal notranslate"><span class="pre">focusColor</span></code></dt>
+<dd class="field-even"><p>Color of the focus indicator</p>
+</dd>
+<dt class="field-odd"><code class="docutils literal notranslate"><span class="pre">taskColor</span></code></dt>
+<dd class="field-odd"><p>Color of the task selection indicator</p>
+</dd>
+</dl>
+<p>In order to apply the changes, recompile the fragment shader using</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>glslc --target-env<span class="o">=</span>vulkan --fshader-stage<span class="o">=</span>fragment -O -x hlsl -o frame_fragment.spv -DSHADER_STAGE_PS frame.hlsl
+</pre></div>
+</div>
+<p>Once successfully compiled, the output object <code class="docutils literal notranslate"><span class="pre">frame_fragment.spv</span></code> can then be placed in one of the shader lookup directories.</p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">chamferwm</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="setup.html">Setup and Running</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bindings.html">Key Bindings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">Configuration</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Shaders and Appearance</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#shader-paths">Shader Paths</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#rendering-pipeline">Rendering Pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#customization">Customization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#basic-appearance">Basic Appearance</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="config.html" title="previous chapter">Configuration</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Jasper Parkkila.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
