@@ -88,6 +88,9 @@
 <dt class="field-odd">mod+p</dt>
 <dd class="field-odd"><p>Place marked containers under (as a child) of the currently focused container</p>
 </dd>
+<dt class="field-even">mod+mouse1</dt>
+<dd class="field-even"><p>(<em>hardcoded</em>) Click to drag the client around (both tiled or floating). Dragging a tiled container will displace the container while keeping the surrounding layout.</p>
+</dd>
 </dl>
 </div>
 <div class="section" id="gouping-and-parenting">
@@ -120,21 +123,34 @@
 </div>
 <div class="section" id="client-dimensions">
 <h2>Client dimensions<a class="headerlink" href="#client-dimensions" title="Permalink to this headline">¶</a></h2>
+<p>In Chamferwm, the size of the container can be adjusted in two ways: resize and adjust the size of the peers in the same parent container accordingly, or resize locally keeping the surrounding layout intact (may result in overlapping).</p>
 <dl class="field-list simple">
 <dt class="field-odd">mod+r</dt>
-<dd class="field-odd"><p>Reset container size and placement</p>
+<dd class="field-odd"><p>Reset container size and placement (local size)</p>
 </dd>
-<dt class="field-even">mod+minus</dt>
+<dt class="field-even">mod+minus, Super+j</dt>
 <dd class="field-even"><p>Decrease container size horizontally</p>
 </dd>
-<dt class="field-odd">mod+plus</dt>
-<dd class="field-odd"><p>Increase container size horizontally</p>
+<dt class="field-odd">mod+Control+minus, Super+Control+j</dt>
+<dd class="field-odd"><p>Decrease container size horizontally (local resize, no layout adjustment)</p>
 </dd>
-<dt class="field-even">mod+Shift+minus</dt>
+<dt class="field-even">mod+plus, Super+k</dt>
+<dd class="field-even"><p>Increase container size horizontally</p>
+</dd>
+<dt class="field-odd">mod+Control+plus, Super+Control+k</dt>
+<dd class="field-odd"><p>Increase container size horizontally (local resize, no layout adjustment)</p>
+</dd>
+<dt class="field-even">mod+Shift+minus, Super+Shift+j</dt>
 <dd class="field-even"><p>Decrease container size vertically</p>
 </dd>
-<dt class="field-odd">mod+Shift+plus</dt>
-<dd class="field-odd"><p>Increase container size vertically</p>
+<dt class="field-odd">mod+Shift+Control+minus, Super+Shift+Control+j</dt>
+<dd class="field-odd"><p>Decrease container size vertically (local resize, no layout adjustment)</p>
+</dd>
+<dt class="field-even">mod+Shift+plus, Super+Shift+k</dt>
+<dd class="field-even"><p>Increase container size vertically</p>
+</dd>
+<dt class="field-odd">mod+Shift+Control+plus, Super+Shift+Control+k</dt>
+<dd class="field-odd"><p>Increase container size vertically (local resize, no layout adjustment)</p>
 </dd>
 </dl>
 </div>
@@ -170,6 +186,17 @@
 <dt class="field-even">XF86_MonBrightnessDown</dt>
 <dd class="field-even"><p>Decrease screen brightness by 20%</p>
 </dd>
+<dt class="field-odd">Control+q</dt>
+<dd class="field-odd"><p>No operation - used to disable the highly harmful web browser quit shortcut</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="window-manager">
+<h2>Window Manager<a class="headerlink" href="#window-manager" title="Permalink to this headline">¶</a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">Alt+Shift+e</dt>
+<dd class="field-odd"><p>(<em>hardcoded</em>) Exit Chamferwm</p>
+</dd>
 </dl>
 </div>
 </div>
@@ -202,6 +229,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#client-dimensions">Client dimensions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#launching-and-closing-applications">Launching and closing applications</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#audio-screen-etc">Audio, screen etc.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#window-manager">Window Manager</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="config.html">Configuration</a></li>
