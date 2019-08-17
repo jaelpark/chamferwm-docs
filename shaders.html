@@ -48,14 +48,17 @@
 <p>The appearance of clients and their effects such as decorations, borders and shadows is fully controlled by either adjusting the parameters of the given default shaders, or by designing custom solutions by modifying existing or creating new shaders. Since the appearance of the clients can be completely arbitrary and is dictated by the shaders only, there are no style specific configuration options in the configuration script such as color, border width or anything that might not be relevant to a custom design. Instead, these are intended to be defined directly within the shader source.</p>
 <p>The look of the stock appearance of Chamferwm is given by the fragment shader portion of <code class="docutils literal notranslate"><span class="pre">frame.hlsl</span></code> (compiled <code class="docutils literal notranslate"><span class="pre">frame_fragment.spv</span></code>). By adjusting a set of constants defined in the HLSL source, user may control some of the basic features of the stock appearance:</p>
 <dl class="field-list simple">
-<dt class="field-odd"><code class="docutils literal notranslate"><span class="pre">borderColor</span></code></dt>
-<dd class="field-odd"><p>Color of the client borders</p>
+<dt class="field-odd"><code class="docutils literal notranslate"><span class="pre">borderScaling</span></code></dt>
+<dd class="field-odd"><p>Scaling constant for the width of the client border</p>
 </dd>
-<dt class="field-even"><code class="docutils literal notranslate"><span class="pre">focusColor</span></code></dt>
-<dd class="field-even"><p>Color of the focus indicator</p>
+<dt class="field-even"><code class="docutils literal notranslate"><span class="pre">borderColor</span></code></dt>
+<dd class="field-even"><p>Color of the client border</p>
 </dd>
-<dt class="field-odd"><code class="docutils literal notranslate"><span class="pre">taskSelectColor</span></code></dt>
-<dd class="field-odd"><p>Color of the task selection indicator</p>
+<dt class="field-odd"><code class="docutils literal notranslate"><span class="pre">focusColor</span></code></dt>
+<dd class="field-odd"><p>Color of the focus indicator</p>
+</dd>
+<dt class="field-even"><code class="docutils literal notranslate"><span class="pre">taskSelectColor</span></code></dt>
+<dd class="field-even"><p>Color of the task selection indicator</p>
 </dd>
 </dl>
 <p>In order to apply the changes, recompile the fragment shader using</p>
