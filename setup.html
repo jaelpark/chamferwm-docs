@@ -81,6 +81,10 @@ ninja
 <p class="admonition-title">Note</p>
 <p>When multiple rendering devices are available, make the choice with <code class="docutils literal notranslate"><span class="pre">--device-index=n</span></code>, where <em>n</em> is the zero-based index of the device (default = 0).</p>
 </div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>NVIDIA users may have to add <code class="docutils literal notranslate"><span class="pre">Option</span> <span class="pre">&quot;AllowSHMPixmaps&quot;</span> <span class="pre">&quot;1&quot;</span></code> to their Xorg configuration.</p>
+</div>
 <p>To run the window manager without the integrated compositor, use</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">exec</span> chamfer --config<span class="o">=</span>/path/to/config/config.py -n
 </pre></div>
@@ -118,7 +122,7 @@ ninja
 <dd><p>Disable scissoring optimization.</p>
 </dd>
 <dt><kbd><span class="option">--shader-path=<var>path</var></span></kbd></dt>
-<dd><p>Shader lookup path. SPIR-V shader objects are identified by an ‘.spv’ extension. Multiple paths may be specified.</p>
+<dd><p>Shader lookup path. SPIR-V shader objects are identified by an '.spv' extension. Multiple paths may be specified.</p>
 </dd>
 </dl>
 </div>
