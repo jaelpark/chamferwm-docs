@@ -60,9 +60,12 @@
 <dt class="field-even"><code class="docutils literal notranslate"><span class="pre">taskSelectColor</span></code></dt>
 <dd class="field-even"><p>Color of the task selection indicator</p>
 </dd>
+<dt class="field-odd"><code class="docutils literal notranslate"><span class="pre">STOCK_FRAME_STYLE</span></code></dt>
+<dd class="field-odd"><p>Choose between different demo styles (= 1: chamfered edges, other: simple borders)</p>
+</dd>
 </dl>
 <p>In order to apply the changes, recompile the fragment shader using</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>glslc --target-env<span class="o">=</span>vulkan --fshader-stage<span class="o">=</span>fragment -O -x hlsl -o frame_fragment.spv -DSHADER_STAGE_PS frame.hlsl
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>glslc --target-env<span class="o">=</span>vulkan -fhlsl_functionality1 -fshader-stage<span class="o">=</span>fragment -O -x hlsl -o frame_fragment.spv -DSHADER_STAGE_PS frame.hlsl
 </pre></div>
 </div>
 <p>Once successfully compiled, the output object <code class="docutils literal notranslate"><span class="pre">frame_fragment.spv</span></code> can then be placed in one of the shader lookup directories.</p>
