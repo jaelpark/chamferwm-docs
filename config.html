@@ -289,7 +289,7 @@
 <dl class="attribute">
 <dt id="chamfer.Container.shaderFlags">
 <code class="sig-name descname">shaderFlags</code><a class="headerlink" href="#chamfer.Container.shaderFlags" title="Permalink to this definition">¶</a></dt>
-<dd><p>User supplied value that will be passed on to the shaders as a push constant. Note that value 0x1 is reserved for Chamferwm, to be used as client focused indicator.</p>
+<dd><p>User supplied value that will be passed on to the shaders as a push constant. See <a class="reference internal" href="#chamfer.shaderFlag" title="chamfer.shaderFlag"><code class="xref py py-class docutils literal notranslate"><span class="pre">shaderFlag</span></code></a> for the list of bit flags automatically managed by Chamferwm. Note that all bits below <a class="reference internal" href="#chamfer.shaderFlag.USER_BIT" title="chamfer.shaderFlag.USER_BIT"><code class="xref py py-attr docutils literal notranslate"><span class="pre">USER_BIT</span></code></a> are reserved for use by Chamferwm.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -472,6 +472,30 @@
 <dt id="chamfer.backend">
 <code class="sig-prename descclassname">chamfer.</code><code class="sig-name descname">backend</code><a class="headerlink" href="#chamfer.backend" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bound backend class object used by Chamferwm. Read only attribute.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="chamfer.shaderFlag">
+<em class="property">class </em><code class="sig-prename descclassname">chamfer.</code><code class="sig-name descname">shaderFlag</code><span class="sig-paren">(</span><em class="sig-param">enum.Enum</em><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.shaderFlag" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bit flags for the shader push constant, accessible with <a class="reference internal" href="#chamfer.Container.shaderFlags" title="chamfer.Container.shaderFlags"><code class="xref py py-attr docutils literal notranslate"><span class="pre">shaderFlags</span></code></a>.</p>
+<dl class="attribute">
+<dt id="chamfer.shaderFlag.FOCUS">
+<code class="sig-name descname">FOCUS</code><a class="headerlink" href="#chamfer.shaderFlag.FOCUS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Client focus bit, set automatically by Chamferwm.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="chamfer.shaderFlag.FLOATING">
+<code class="sig-name descname">FLOATING</code><a class="headerlink" href="#chamfer.shaderFlag.FLOATING" title="Permalink to this definition">¶</a></dt>
+<dd><p>Floating client bit, set automatically by Chamferwm.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="chamfer.shaderFlag.USER_BIT">
+<code class="sig-name descname">USER_BIT</code><a class="headerlink" href="#chamfer.shaderFlag.USER_BIT" title="Permalink to this definition">¶</a></dt>
+<dd><p>First bit reserved for user defined flags.</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="class">
