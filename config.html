@@ -85,7 +85,7 @@
         <span class="o">...</span>
 </pre></div>
 </div>
-<p><strong>2. Launch procedure.</strong> We launch the application using <code class="xref py py-mod docutils literal notranslate"><span class="pre">psutil</span></code> module's <code class="xref py py-func docutils literal notranslate"><span class="pre">psutil.Popen()</span></code> function. Under <a class="reference internal" href="#chamfer.Backend.OnKeyPress" title="chamfer.Backend.OnKeyPress"><code class="xref py py-meth docutils literal notranslate"><span class="pre">chamfer.Backend.OnKeyPress()</span></code></a> callback we add a branch for our newly defined key identifier, in which we start our browser process:</p>
+<p><strong>2. Launch procedure.</strong> We launch the application using <code class="xref py py-mod docutils literal notranslate"><span class="pre">psutil</span></code> module’s <code class="xref py py-func docutils literal notranslate"><span class="pre">psutil.Popen()</span></code> function. Under <a class="reference internal" href="#chamfer.Backend.OnKeyPress" title="chamfer.Backend.OnKeyPress"><code class="xref py py-meth docutils literal notranslate"><span class="pre">chamfer.Backend.OnKeyPress()</span></code></a> callback we add a branch for our newly defined key identifier, in which we start our browser process:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">elif</span> <span class="n">keyId</span> <span class="o">==</span> <span class="n">Key</span><span class="o">.</span><span class="n">LAUNCH_BROWSER</span><span class="o">.</span><span class="n">value</span><span class="p">:</span>
         <span class="n">psutil</span><span class="o">.</span><span class="n">Popen</span><span class="p">([</span><span class="s2">&quot;firefox&quot;</span><span class="p">],</span><span class="n">stdout</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">stderr</span><span class="o">=</span><span class="bp">None</span><span class="p">);</span>
 </pre></div>
@@ -111,7 +111,7 @@
 <span id="fig-layout"></span><a class="reference internal image-reference" href="_images/chamfer-layout.svg"><img alt="_images/chamfer-layout.svg" src="_images/chamfer-layout.svg" width="60%" /></a>
 <p class="caption"><span class="caption-text">Possible corresponding window arrangement.</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
 </div>
-<p>The <a class="reference internal" href="#chamfer.Container" title="chamfer.Container"><code class="xref py py-class docutils literal notranslate"><span class="pre">Container</span></code></a> class is a user implemented interface to define callbacks related to creation and initialization of the container and client window, and to handle events that might arise from window management behaviour.</p>
+<p>The <a class="reference internal" href="#chamfer.Container" title="chamfer.Container"><code class="xref py py-class docutils literal notranslate"><span class="pre">Container</span></code></a> class is a user implemented interface to define callbacks related to creation and initialization of the container and client window, and to handle events that might arise during window management.</p>
 <dl class="method">
 <dt id="chamfer.Container.OnSetupContainer">
 <code class="sig-name descname">OnSetupContainer</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.Container.OnSetupContainer" title="Permalink to this definition">¶</a></dt>
@@ -265,7 +265,13 @@
 <dl class="attribute">
 <dt id="chamfer.Container.margin">
 <code class="sig-name descname">margin</code><a class="headerlink" href="#chamfer.Container.margin" title="Permalink to this definition">¶</a></dt>
-<dd><p>A tuple of two values, one for the each dimension of the screen. A positive non-zero value will apply a gap between the containers in order to give the composior space to render the decorations around the client windows. <a class="reference internal" href="#chamfer.Container.margin" title="chamfer.Container.margin"><code class="xref py py-attr docutils literal notranslate"><span class="pre">margin</span></code></a> will also determine the proportional relative size of the compositor drawn rectangles for the border decorations. The units are in full screen widths (and widths only, to preserve the aspect). Setting <code class="docutils literal notranslate"><span class="pre">margin</span> <span class="pre">=</span> <span class="pre">(0.015,0.015)</span></code> would inset the container by 1.5% of the screen width horizontally and vertically.</p>
+<dd><p>A tuple of two values, one for horizontal and vertical screen dimensions. A positive non-zero value will apply a gap between the containers in order to give the compositor space to render the decorations around the client windows. The units are in full screen widths (and widths only, to preserve the aspect). Setting <code class="docutils literal notranslate"><span class="pre">margin</span> <span class="pre">=</span> <span class="pre">(0.015,0.015)</span></code> would inset the container by 1.5% of the screen width horizontally and vertically.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="chamfer.Container.size">
+<code class="sig-name descname">size</code><a class="headerlink" href="#chamfer.Container.size" title="Permalink to this definition">¶</a></dt>
+<dd><p>A tuple of two values for the size of the container and space reserved in horizontal and vertical screen direction. The units are widths and heights of the parent container: for instance, a value of <code class="docutils literal notranslate"><span class="pre">(0.7,1)</span></code> reserves 70% of the total horizontal and 100% of the vertical space given by the parent. If only one container exists, the value will always be <code class="docutils literal notranslate"><span class="pre">(1,1)</span></code>. The value is automatically updated as the surrounding layout changes. For example, the first container will have a size of <code class="docutils literal notranslate"><span class="pre">(1,1)</span></code>. Creating a second container will split the space in half, giving both containers a size <code class="docutils literal notranslate"><span class="pre">(0.5,1)</span></code> (in case of vertical splitting). User may then adjust the size of one of the containers to <code class="docutils literal notranslate"><span class="pre">(0.7,1)</span></code>, which will automatically assign the other container a size <code class="docutils literal notranslate"><span class="pre">(0.3,1)</span></code>.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -399,7 +405,7 @@
 <dl class="class">
 <dt id="chamfer.Backend">
 <em class="property">class </em><code class="sig-prename descclassname">chamfer.</code><code class="sig-name descname">Backend</code><a class="headerlink" href="#chamfer.Backend" title="Permalink to this definition">¶</a></dt>
-<dd><p>A user implemented interface to define routines for various window management related events. Moreover, <a class="reference internal" href="#chamfer.Backend" title="chamfer.Backend"><code class="xref py py-class docutils literal notranslate"><span class="pre">Backend</span></code></a> provides methods for ...</p>
+<dd><p>A user implemented interface to define routines for various window management related events. Moreover, <a class="reference internal" href="#chamfer.Backend" title="chamfer.Backend"><code class="xref py py-class docutils literal notranslate"><span class="pre">Backend</span></code></a> provides methods for …</p>
 <dl class="method">
 <dt id="chamfer.Backend.OnSetupKeys">
 <code class="sig-name descname">OnSetupKeys</code><span class="sig-paren">(</span><em class="sig-param">debug</em><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.Backend.OnSetupKeys" title="Permalink to this definition">¶</a></dt>
@@ -445,7 +451,7 @@
 <dl class="method">
 <dt id="chamfer.Backend.BindKey">
 <code class="sig-name descname">BindKey</code><span class="sig-paren">(</span><em class="sig-param">symbol</em>, <em class="sig-param">mask</em>, <em class="sig-param">keyId</em><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.Backend.BindKey" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bind key <em>symbol</em> with modifier <em>mask</em>. The key combination will be exclusive to Chamferwm, and won't be reported to any of the clients. Whenever the bound key is pressed, <a class="reference internal" href="#chamfer.Backend.OnKeyPress" title="chamfer.Backend.OnKeyPress"><code class="xref py py-meth docutils literal notranslate"><span class="pre">chamfer.Backend.OnKeyPress()</span></code></a> with <em>keyId</em> is called. Likewise, <a class="reference internal" href="#chamfer.Backend.OnKeyRelease" title="chamfer.Backend.OnKeyRelease"><code class="xref py py-meth docutils literal notranslate"><span class="pre">chamfer.Backend.OnKeyRelease()</span></code></a> is called when the pressed key is released.</p>
+<dd><p>Bind key <em>symbol</em> with modifier <em>mask</em>. The key combination will be exclusive to Chamferwm, and won’t be reported to any of the clients. Whenever the bound key is pressed, <a class="reference internal" href="#chamfer.Backend.OnKeyPress" title="chamfer.Backend.OnKeyPress"><code class="xref py py-meth docutils literal notranslate"><span class="pre">chamfer.Backend.OnKeyPress()</span></code></a> with <em>keyId</em> is called. Likewise, <a class="reference internal" href="#chamfer.Backend.OnKeyRelease" title="chamfer.Backend.OnKeyRelease"><code class="xref py py-meth docutils literal notranslate"><span class="pre">chamfer.Backend.OnKeyRelease()</span></code></a> is called when the pressed key is released.</p>
 </dd></dl>
 
 <dl class="method">
