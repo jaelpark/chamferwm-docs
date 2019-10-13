@@ -65,7 +65,7 @@
 </dd>
 </dl>
 <p>In order to apply the changes, recompile the fragment shader using</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>glslc --target-env<span class="o">=</span>vulkan -fhlsl_functionality1 -fshader-stage<span class="o">=</span>fragment -O -x hlsl -o frame_fragment.spv -DSHADER_STAGE_PS frame.hlsl
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>glslc --target-env<span class="o">=</span>vulkan -fhlsl_functionality1 -fshader-stage<span class="o">=</span>fragment -x hlsl -DSHADER_STAGE_PS -o - frame.hlsl <span class="p">|</span> spirv-opt -O -o frame_fragment.spv -
 </pre></div>
 </div>
 <p>Once successfully compiled, the output object <code class="docutils literal notranslate"><span class="pre">frame_fragment.spv</span></code> can then be placed in one of the shader lookup directories.</p>
