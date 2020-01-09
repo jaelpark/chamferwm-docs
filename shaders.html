@@ -57,11 +57,14 @@
 <dt class="field-odd"><code class="docutils literal notranslate"><span class="pre">focusColor</span></code></dt>
 <dd class="field-odd"><p>Color of the focus indicator</p>
 </dd>
-<dt class="field-even"><code class="docutils literal notranslate"><span class="pre">taskSelectColor</span></code></dt>
-<dd class="field-even"><p>Color of the task selection indicator</p>
+<dt class="field-even"><code class="docutils literal notranslate"><span class="pre">titleBackground</span></code></dt>
+<dd class="field-even"><p>Background color of a title bar for an unfocused client</p>
 </dd>
-<dt class="field-odd"><code class="docutils literal notranslate"><span class="pre">STOCK_FRAME_STYLE</span></code></dt>
-<dd class="field-odd"><p>Choose between different demo styles (= 1: chamfered edges, other: simple borders)</p>
+<dt class="field-odd"><code class="docutils literal notranslate"><span class="pre">taskSelectColor</span></code></dt>
+<dd class="field-odd"><p>Color of the task selection indicator</p>
+</dd>
+<dt class="field-even"><code class="docutils literal notranslate"><span class="pre">STOCK_FRAME_STYLE</span></code></dt>
+<dd class="field-even"><p>Choose between different demo styles (= 1: chamfered edges, other: simple borders)</p>
 </dd>
 </dl>
 <p>In order to apply the changes, recompile the fragment shader using</p>
@@ -72,32 +75,51 @@
 </div>
 <div class="section" id="rendering-pipeline">
 <h2>Rendering Pipeline<a class="headerlink" href="#rendering-pipeline" title="Permalink to this headline">¶</a></h2>
-<p>Chamferwm requires three different shaders for its rendering pipeline:</p>
+<p>Chamferwm requires three different shaders for its client rendering pipeline:</p>
 <ol class="arabic simple">
 <li><p>Vertex shader</p></li>
 <li><p>Geometry shader</p></li>
 <li><p>Fragment shader</p></li>
 </ol>
-<p>For each client, a single vertex is drawn. This vertex has no attributes, and the default vertex shader of Chamferwm simply passes it through to the geometry shader. From this single vertex the geometry shader then expands the necessary surfaces for the client according to the dimensions provided through the push constants. Push constants are arranged as follows, and are available in all shader stages:</p>
-<div class="literal-block-wrapper docutils container" id="pushconst">
-<div class="code-block-caption"><span class="caption-text">Push constants</span><a class="headerlink" href="#pushconst" title="Permalink to this code">¶</a></div>
-<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="kt">vec2</span> <span class="n">xy0</span><span class="p">;</span> <span class="c1">//normalized top-left corner location</span>
-<span class="kt">vec2</span> <span class="n">xy1</span><span class="p">;</span> <span class="c1">//normalized bottom-right corner location</span>
-<span class="kt">vec2</span> <span class="n">screen</span><span class="p">;</span> <span class="c1">//screen pixel dimensions</span>
-<span class="kt">vec2</span> <span class="n">margin</span><span class="p">;</span> <span class="c1">//normalized gap margin in x and y directions</span>
+<p>For each client, a single vertex is drawn. This vertex has no attributes, and the default vertex shader of Chamferwm simply passes it through to the geometry shader. From this single vertex the geometry shader then expands the necessary surfaces for the client according to the dimensions provided through the push constants. The following push constants are available, and are accessible in all shader stages:</p>
+<div class="literal-block-wrapper docutils container" id="clientpushconst">
+<div class="code-block-caption"><span class="caption-text">Available push constants for client rendering pipeline</span><a class="headerlink" href="#clientpushconst" title="Permalink to this code">¶</a></div>
+<div class="highlight-hlsl notranslate"><div class="highlight"><pre><span></span><span class="kt">float2</span> <span class="n">xy0</span><span class="p">;</span> <span class="c1">//normalized top-left corner location</span>
+<span class="kt">float2</span> <span class="n">xy1</span><span class="p">;</span> <span class="c1">//normalized bottom-right corner location</span>
+<span class="kt">float2</span> <span class="n">screen</span><span class="p">;</span> <span class="c1">//screen pixel dimensions</span>
+<span class="kt">float2</span> <span class="n">margin</span><span class="p">;</span> <span class="c1">//normalized gap margin in x and y directions</span>
+<span class="kt">float2</span> <span class="n">titlePad</span><span class="p">;</span> <span class="c1">//A vector indicating the location and size of the titlebar if any</span>
 <span class="kt">uint</span> <span class="n">flags</span><span class="p">;</span> <span class="c1">//flags such as whether client is focused</span>
 <span class="kt">float</span> <span class="n">time</span><span class="p">;</span> <span class="c1">//time in seconds since client creation</span>
 </pre></div>
 </div>
 </div>
+<p>The shader may declare any number of variables from the above list. The order of declaration does not matter, but should be shared among all shader stages.</p>
 <p>The actual appearance is given by the fragment shader. The fragment shader identifies the fragments rasterized from surfaces given by the geometry shader, and paints the shadow, the window border and the client contents on them. The results are alpha-blended on previously rendered surfaces.</p>
+<p>Text on the title bars and such is rendered using another pipeline, which defines a vertex shader and a fragment shader. A minimal vertex shader expects a position and a texture coordinate to sample the font atlas:</p>
+<div class="literal-block-wrapper docutils container" id="textvertex">
+<div class="code-block-caption"><span class="caption-text">Available vertex attributes for text rendering pipeline</span><a class="headerlink" href="#textvertex" title="Permalink to this code">¶</a></div>
+<div class="highlight-hlsl notranslate"><div class="highlight"><pre><span></span><span class="kt">float2</span> <span class="n">pos</span> <span class="o">:</span> <span class="n">POSITION</span><span class="p">;</span> <span class="c1">//normalized point location</span>
+<span class="kt">uint2</span> <span class="n">texc</span> <span class="o">:</span> <span class="n">TEXCOORD</span><span class="p">;</span> <span class="c1">//texture pixel coordinates</span>
+</pre></div>
+</div>
+</div>
+<p>In HLSL the attributes are identified using the semantics <code class="docutils literal notranslate"><span class="pre">POSITION</span></code>, <code class="docutils literal notranslate"><span class="pre">TEXCOORD</span></code> etc. As with push constants, the vertex attributes may be declared as needed, and in any order. For text pipeline, following push constants are available:</p>
+<div class="literal-block-wrapper docutils container" id="textpushconst">
+<div class="code-block-caption"><span class="caption-text">Available push constants for text rendering pipeline</span><a class="headerlink" href="#textpushconst" title="Permalink to this code">¶</a></div>
+<div class="highlight-hlsl notranslate"><div class="highlight"><pre><span></span><span class="kt">float2</span> <span class="n">xy0</span><span class="p">;</span> <span class="c1">//normalized baseline location at the beginning of the text</span>
+<span class="kt">float2</span> <span class="n">screen</span><span class="p">;</span> <span class="c1">//screen pixel dimensions</span>
+<span class="kt">float2x2</span> <span class="n">transform</span><span class="p">;</span> <span class="c1">//text transform matrix, generally for the rotation</span>
+</pre></div>
+</div>
+</div>
 </div>
 <div class="section" id="advanced-customization">
 <h2>Advanced Customization<a class="headerlink" href="#advanced-customization" title="Permalink to this headline">¶</a></h2>
 <p>The shader sources provided with Chamferwm can be found in the source tree. The provided shaders are written in HLSL, although any other language that compiles to SPIR-V, such as GLSL may be used. Following shader sources are provided:</p>
 <dl class="field-list simple">
 <dt class="field-odd">chamfer.hlsl</dt>
-<dd class="field-odd"><p>Common definitions, and the push constants defined according to <a class="reference internal" href="#pushconst"><span class="std std-ref">Push constants</span></a>.</p>
+<dd class="field-odd"><p>Common definitions, and the push constants defined according to <a class="reference internal" href="#clientpushconst"><span class="std std-ref">Available push constants for client rendering pipeline</span></a>.</p>
 </dd>
 <dt class="field-even">default.hlsl</dt>
 <dd class="field-even"><p>Basic shaders to draw clients without any decorations or effects. Good starting point for new designs.</p>
@@ -107,6 +129,9 @@
 </dd>
 <dt class="field-even">solid.hlsl</dt>
 <dd class="field-even"><p>Simple fragment shader to fill with solid color. Mostly used to draw solid color backgrounds when wallpaper is not set.</p>
+</dd>
+<dt class="field-odd">text.hlsl</dt>
+<dd class="field-odd"><p>Vertex and fragment shader for text rendering</p>
 </dd>
 </dl>
 <p>Some of the sources contain portions for more than one shader stage, guarded by preprocessing directives. The build system for Chamferwm preprocesses and compiles the sources into one or more SPIR-V objects. User may also manually invoke a shader compiler (such as <code class="docutils literal notranslate"><span class="pre">glslc</span></code> also used by default) in order to deploy any modifications and additions:</p>
@@ -183,7 +208,7 @@
       &copy;2019, Jasper Parkkila.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>

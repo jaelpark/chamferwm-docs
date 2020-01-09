@@ -85,9 +85,9 @@
         <span class="o">...</span>
 </pre></div>
 </div>
-<p><strong>2. Launch procedure.</strong> We launch the application using <code class="xref py py-mod docutils literal notranslate"><span class="pre">psutil</span></code> module's <code class="xref py py-func docutils literal notranslate"><span class="pre">psutil.Popen()</span></code> function. Under <a class="reference internal" href="#chamfer.Backend.OnKeyPress" title="chamfer.Backend.OnKeyPress"><code class="xref py py-meth docutils literal notranslate"><span class="pre">chamfer.Backend.OnKeyPress()</span></code></a> callback we add a branch for our newly defined key identifier, in which we start our browser process:</p>
+<p><strong>2. Launch procedure.</strong> We launch the application using <code class="xref py py-mod docutils literal notranslate"><span class="pre">psutil</span></code> module’s <code class="xref py py-func docutils literal notranslate"><span class="pre">psutil.Popen()</span></code> function. Under <a class="reference internal" href="#chamfer.Backend.OnKeyPress" title="chamfer.Backend.OnKeyPress"><code class="xref py py-meth docutils literal notranslate"><span class="pre">chamfer.Backend.OnKeyPress()</span></code></a> callback we add a branch for our newly defined key identifier, in which we start our browser process:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">elif</span> <span class="n">keyId</span> <span class="o">==</span> <span class="n">Key</span><span class="o">.</span><span class="n">LAUNCH_BROWSER</span><span class="o">.</span><span class="n">value</span><span class="p">:</span>
-        <span class="n">psutil</span><span class="o">.</span><span class="n">Popen</span><span class="p">([</span><span class="s2">&quot;firefox&quot;</span><span class="p">],</span><span class="n">stdout</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">stderr</span><span class="o">=</span><span class="bp">None</span><span class="p">);</span>
+        <span class="n">psutil</span><span class="o">.</span><span class="n">Popen</span><span class="p">([</span><span class="s2">&quot;firefox&quot;</span><span class="p">],</span><span class="n">stdout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">stderr</span><span class="o">=</span><span class="kc">None</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>Note that it is possible to configure applications to launch on start up while the window manager is being initialized. In this case simply put <code class="xref py py-func docutils literal notranslate"><span class="pre">psutil.Popen()</span></code> somewhere in the global scope.</p>
@@ -239,6 +239,12 @@
 </dd></dl>
 
 <dl class="method">
+<dt id="chamfer.Container.SetStacked">
+<code class="sig-name descname">SetStacked</code><span class="sig-paren">(</span><em class="sig-param">toggle</em><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.Container.SetStacked" title="Permalink to this definition">¶</a></dt>
+<dd><p>Toggle container stacking inside this container. If <a class="reference internal" href="#chamfer.Container.layout" title="chamfer.Container.layout"><code class="xref py py-attr docutils literal notranslate"><span class="pre">layout</span></code></a> is equal to <a class="reference internal" href="#chamfer.layout.VSPLIT" title="chamfer.layout.VSPLIT"><code class="xref py py-attr docutils literal notranslate"><span class="pre">chamfer.layout.VSPLIT</span></code></a>, the containers will be tabbed, and can be cycled horizontally. Otherwise, the containers are stacked, and are vertically cycled.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="chamfer.Container.IsFloating">
 <code class="sig-name descname">IsFloating</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.Container.IsFloating" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns true if this is a floating container.</p>
@@ -290,6 +296,12 @@
 <dt id="chamfer.Container.fullscreen">
 <code class="sig-name descname">fullscreen</code><a class="headerlink" href="#chamfer.Container.fullscreen" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read only fullscreen status: true if this container is in fullscreen mode, false otherwise.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="chamfer.Container.stacked">
+<code class="sig-name descname">stacked</code><a class="headerlink" href="#chamfer.Container.stacked" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read only container stacking status: true if containers inside this container are stacked</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -403,9 +415,45 @@
 </dd></dl>
 
 <dl class="class">
+<dt id="chamfer.titleBar">
+<em class="property">class </em><code class="sig-prename descclassname">chamfer.</code><code class="sig-name descname">titleBar</code><a class="headerlink" href="#chamfer.titleBar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Title bar placement. By default the title bars are placed on top of the client.</p>
+<dl class="attribute">
+<dt id="chamfer.titleBar.NONE">
+<code class="sig-name descname">NONE</code><a class="headerlink" href="#chamfer.titleBar.NONE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hide title bar</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="chamfer.titleBar.LEFT">
+<code class="sig-name descname">LEFT</code><a class="headerlink" href="#chamfer.titleBar.LEFT" title="Permalink to this definition">¶</a></dt>
+<dd><p>Title bar placed at the left border of client</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="chamfer.titleBar.TOP">
+<code class="sig-name descname">TOP</code><a class="headerlink" href="#chamfer.titleBar.TOP" title="Permalink to this definition">¶</a></dt>
+<dd><p>Title bar placed at the left border of client</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="chamfer.titleBar.RIGHT">
+<code class="sig-name descname">RIGHT</code><a class="headerlink" href="#chamfer.titleBar.RIGHT" title="Permalink to this definition">¶</a></dt>
+<dd><p>Title bar placed at the left border of client</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="chamfer.titleBar.BOTTOM">
+<code class="sig-name descname">BOTTOM</code><a class="headerlink" href="#chamfer.titleBar.BOTTOM" title="Permalink to this definition">¶</a></dt>
+<dd><p>Title bar placed at the left border of client</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="chamfer.Backend">
 <em class="property">class </em><code class="sig-prename descclassname">chamfer.</code><code class="sig-name descname">Backend</code><a class="headerlink" href="#chamfer.Backend" title="Permalink to this definition">¶</a></dt>
-<dd><p>A user implemented interface to define routines for various window management related events. Moreover, <a class="reference internal" href="#chamfer.Backend" title="chamfer.Backend"><code class="xref py py-class docutils literal notranslate"><span class="pre">Backend</span></code></a> provides methods for ...</p>
+<dd><p>A user implemented interface to define routines for various window management related events. Moreover, <a class="reference internal" href="#chamfer.Backend" title="chamfer.Backend"><code class="xref py py-class docutils literal notranslate"><span class="pre">Backend</span></code></a> provides methods for …</p>
 <dl class="method">
 <dt id="chamfer.Backend.OnSetupKeys">
 <code class="sig-name descname">OnSetupKeys</code><span class="sig-paren">(</span><em class="sig-param">debug</em><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.Backend.OnSetupKeys" title="Permalink to this definition">¶</a></dt>
@@ -457,7 +505,7 @@
 <dl class="method">
 <dt id="chamfer.Backend.BindKey">
 <code class="sig-name descname">BindKey</code><span class="sig-paren">(</span><em class="sig-param">symbol</em>, <em class="sig-param">mask</em>, <em class="sig-param">keyId</em><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.Backend.BindKey" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bind key <em>symbol</em> with modifier <em>mask</em>. The key combination will be exclusive to Chamferwm, and won't be reported to any of the clients. Whenever the bound key is pressed, <a class="reference internal" href="#chamfer.Backend.OnKeyPress" title="chamfer.Backend.OnKeyPress"><code class="xref py py-meth docutils literal notranslate"><span class="pre">chamfer.Backend.OnKeyPress()</span></code></a> with <em>keyId</em> is called. Likewise, <a class="reference internal" href="#chamfer.Backend.OnKeyRelease" title="chamfer.Backend.OnKeyRelease"><code class="xref py py-meth docutils literal notranslate"><span class="pre">chamfer.Backend.OnKeyRelease()</span></code></a> is called when the pressed key is released.</p>
+<dd><p>Bind key <em>symbol</em> with modifier <em>mask</em>. The key combination will be exclusive to Chamferwm, and won’t be reported to any of the clients. Whenever the bound key is pressed, <a class="reference internal" href="#chamfer.Backend.OnKeyPress" title="chamfer.Backend.OnKeyPress"><code class="xref py py-meth docutils literal notranslate"><span class="pre">chamfer.Backend.OnKeyPress()</span></code></a> with <em>keyId</em> is called. Likewise, <a class="reference internal" href="#chamfer.Backend.OnKeyRelease" title="chamfer.Backend.OnKeyRelease"><code class="xref py py-meth docutils literal notranslate"><span class="pre">chamfer.Backend.OnKeyRelease()</span></code></a> is called when the pressed key is released.</p>
 </dd></dl>
 
 <dl class="method">
@@ -536,6 +584,24 @@
 <dt id="chamfer.Compositor.enableAnimation">
 <code class="sig-name descname">enableAnimation</code><a class="headerlink" href="#chamfer.Compositor.enableAnimation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Enable or disable transition and movement animations. Enabled by default.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="chamfer.Compositor.animationDuration">
+<code class="sig-name descname">animationDuration</code><a class="headerlink" href="#chamfer.Compositor.animationDuration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Total duration of the transition and movement animations. Default 0.3 seconds.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="chamfer.Compositor.fontName">
+<code class="sig-name descname">fontName</code><a class="headerlink" href="#chamfer.Compositor.fontName" title="Permalink to this definition">¶</a></dt>
+<dd><p>Font face to use for title bars and such</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="chamfer.Compositor.fontSize">
+<code class="sig-name descname">fontSize</code><a class="headerlink" href="#chamfer.Compositor.fontSize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Title bar font size in points</p>
 </dd></dl>
 
 </dd></dl>
@@ -620,7 +686,7 @@
       &copy;2019, Jasper Parkkila.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>
