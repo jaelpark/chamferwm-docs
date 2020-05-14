@@ -1,17 +1,17 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
     <title>Configuration &#8212; chamferwm git documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Shaders and Appearance" href="shaders.html" />
@@ -85,7 +85,7 @@
         <span class="o">...</span>
 </pre></div>
 </div>
-<p><strong>2. Launch procedure.</strong> We launch the application using <code class="xref py py-mod docutils literal notranslate"><span class="pre">psutil</span></code> module's <code class="xref py py-func docutils literal notranslate"><span class="pre">psutil.Popen()</span></code> function. Under <a class="reference internal" href="#chamfer.Backend.OnKeyPress" title="chamfer.Backend.OnKeyPress"><code class="xref py py-meth docutils literal notranslate"><span class="pre">chamfer.Backend.OnKeyPress()</span></code></a> callback we add a branch for our newly defined key identifier, in which we start our browser process:</p>
+<p><strong>2. Launch procedure.</strong> We launch the application using <code class="xref py py-mod docutils literal notranslate"><span class="pre">psutil</span></code> module’s <code class="xref py py-func docutils literal notranslate"><span class="pre">psutil.Popen()</span></code> function. Under <a class="reference internal" href="#chamfer.Backend.OnKeyPress" title="chamfer.Backend.OnKeyPress"><code class="xref py py-meth docutils literal notranslate"><span class="pre">chamfer.Backend.OnKeyPress()</span></code></a> callback we add a branch for our newly defined key identifier, in which we start our browser process:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">elif</span> <span class="n">keyId</span> <span class="o">==</span> <span class="n">Key</span><span class="o">.</span><span class="n">LAUNCH_BROWSER</span><span class="o">.</span><span class="n">value</span><span class="p">:</span>
         <span class="n">psutil</span><span class="o">.</span><span class="n">Popen</span><span class="p">([</span><span class="s2">&quot;firefox&quot;</span><span class="p">],</span><span class="n">stdout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">stderr</span><span class="o">=</span><span class="kc">None</span><span class="p">);</span>
 </pre></div>
@@ -97,9 +97,9 @@
 <h2>Python API<a class="headerlink" href="#python-api" title="Permalink to this headline">¶</a></h2>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Chamferwm is work in progress, and the configuration API subject is to breaking changes.</p>
+<p>Chamferwm is work in progress, and the configuration API is subject to breaking changes. The default configuration file config.py may also undergo additions and minor refactoring.</p>
 </div>
-<span class="target" id="module-chamfer"></span><dl class="class">
+<span class="target" id="module-chamfer"></span><dl class="py class">
 <dt id="chamfer.Container">
 <em class="property">class </em><code class="sig-prename descclassname">chamfer.</code><code class="sig-name descname">Container</code><a class="headerlink" href="#chamfer.Container" title="Permalink to this definition">¶</a></dt>
 <dd><p>The workspace in Chamferwm is arranged in containers. Containers are a construct to hold either a client window or a set of child containers. The concept of a <em>child</em> container comes from a hierarchial approach: at the base of the tree, there exists a root container which is split into one or more child containers. The child containers may in turn be further split into child containers, or alternatively hold a single instance of a client window.</p>
@@ -112,241 +112,259 @@
 <p class="caption"><span class="caption-text">Possible corresponding window arrangement.</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
 </div>
 <p>The <a class="reference internal" href="#chamfer.Container" title="chamfer.Container"><code class="xref py py-class docutils literal notranslate"><span class="pre">Container</span></code></a> class is a user implemented interface to define callbacks related to creation and initialization of the container and client window, and to handle events that might arise during window management.</p>
-<dl class="method">
+<dl class="py method">
 <dt id="chamfer.Container.OnSetupContainer">
 <code class="sig-name descname">OnSetupContainer</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.Container.OnSetupContainer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Called to setup the container before it is created. One should setup <a class="reference internal" href="#chamfer.Container.minSize" title="chamfer.Container.minSize"><code class="xref py py-attr docutils literal notranslate"><span class="pre">minSize</span></code></a>, <a class="reference internal" href="#chamfer.Container.maxSize" title="chamfer.Container.maxSize"><code class="xref py py-attr docutils literal notranslate"><span class="pre">maxSize</span></code></a> and <a class="reference internal" href="#chamfer.Container.floatingMode" title="chamfer.Container.floatingMode"><code class="xref py py-attr docutils literal notranslate"><span class="pre">floatingMode</span></code></a> here, if necessary.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="chamfer.Container.OnSetupClient">
 <code class="sig-name descname">OnSetupClient</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.Container.OnSetupClient" title="Permalink to this definition">¶</a></dt>
 <dd><p>Called to setup the client before it is created. Can be especially used to assign the initial shaders <a class="reference internal" href="#chamfer.Container.vertexShader" title="chamfer.Container.vertexShader"><code class="xref py py-attr docutils literal notranslate"><span class="pre">vertexShader</span></code></a>, <a class="reference internal" href="#chamfer.Container.geometryShader" title="chamfer.Container.geometryShader"><code class="xref py py-attr docutils literal notranslate"><span class="pre">geometryShader</span></code></a> and <a class="reference internal" href="#chamfer.Container.fragmentShader" title="chamfer.Container.fragmentShader"><code class="xref py py-attr docutils literal notranslate"><span class="pre">fragmentShader</span></code></a>.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="chamfer.Container.OnParent">
 <code class="sig-name descname">OnParent</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.Container.OnParent" title="Permalink to this definition">¶</a></dt>
 <dd><p>Called to assign a parent for the container. The parent is assigned by returning the <a class="reference internal" href="#chamfer.Container" title="chamfer.Container"><code class="xref py py-class docutils literal notranslate"><span class="pre">Container</span></code></a> instance of the desired parent. Most of the time <a class="reference internal" href="#chamfer.Container.OnParent" title="chamfer.Container.OnParent"><code class="xref py py-meth docutils literal notranslate"><span class="pre">OnParent()</span></code></a> is called upon creation of a new container, as it needs to be put into a parent container. In the default sample configuration, the parent of the operand will be the parent of the current focus (retrieved using <a class="reference internal" href="#chamfer.Backend.GetFocus" title="chamfer.Backend.GetFocus"><code class="xref py py-meth docutils literal notranslate"><span class="pre">chamfer.Backend.GetFocus()</span></code></a>), resulting in the new container being placed next to the current focus.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="chamfer.Container.OnCreate">
 <code class="sig-name descname">OnCreate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.Container.OnCreate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Called once the client has been created and mapped to the display. Typically the newly created client can now be focused by calling <a class="reference internal" href="#chamfer.Container.Focus" title="chamfer.Container.Focus"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Focus()</span></code></a>.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="chamfer.Container.OnFullscreen">
-<code class="sig-name descname">OnFullscreen</code><span class="sig-paren">(</span><em class="sig-param">toggle</em><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.Container.OnFullscreen" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">OnFullscreen</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">toggle</span></em><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.Container.OnFullscreen" title="Permalink to this definition">¶</a></dt>
 <dd><p>Called to request permission to enter or exit fullscreen mode for this container depending on the value of <em>toggle</em>. The implementation should return true on permission granted, and false for permission denied. In addition, one may assign a different set of shaders that may better benefit the fullscreen mode, and perform other operations related to the preparations for the transition.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
+<dt id="chamfer.Container.OnStack">
+<code class="sig-name descname">OnStack</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">toggle</span></em><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.Container.OnStack" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called whenever containers under this container are stacked or unstacked, denoted by <em>toggle</em>.</p>
+</dd></dl>
+
+<dl class="py method">
 <dt id="chamfer.Container.OnFocus">
 <code class="sig-name descname">OnFocus</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.Container.OnFocus" title="Permalink to this definition">¶</a></dt>
 <dd><p>Called to request permission for focus, and to allow for any routines before it. This call may be a result of calling <a class="reference internal" href="#chamfer.Container.Focus" title="chamfer.Container.Focus"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Focus()</span></code></a>, or a client spontaneously requesting it. Returning true assigns the focus on this container.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="chamfer.Container.OnPropertyChange">
-<code class="sig-name descname">OnPropertyChange</code><span class="sig-paren">(</span><em class="sig-param">propId</em><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.Container.OnPropertyChange" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">OnPropertyChange</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">propId</span></em><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.Container.OnPropertyChange" title="Permalink to this definition">¶</a></dt>
 <dd><p>Called every time a client property has changed. This may refer to window title etc., given by <em>propId</em>, which will have one of the values from <a class="reference internal" href="#chamfer.property" title="chamfer.property"><code class="xref py py-class docutils literal notranslate"><span class="pre">property</span></code></a>.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="chamfer.Container.GetNext">
 <code class="sig-name descname">GetNext</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.Container.GetNext" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the next sibling container in the parent container.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="chamfer.Container.GetPrev">
 <code class="sig-name descname">GetPrev</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.Container.GetPrev" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the previous sibling container in the parent container.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="chamfer.Container.GetParent">
 <code class="sig-name descname">GetParent</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.Container.GetParent" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieve the parent container.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="chamfer.Container.GetFocus">
 <code class="sig-name descname">GetFocus</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.Container.GetFocus" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the focused container of the parent container. This will be one of the child containers of the operand.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="chamfer.Container.GetTiledFocus">
 <code class="sig-name descname">GetTiledFocus</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.Container.GetTiledFocus" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the most recently focused tiled container. Successive calls on the return objects, for example <code class="docutils literal notranslate"><span class="pre">container.GetTiledFocus().GetTiledFocus()...</span></code>, will retrieve the second most recent, third most recent and so on container.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="chamfer.Container.GetFloatFocus">
 <code class="sig-name descname">GetFloatFocus</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.Container.GetFloatFocus" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the most recently focused floating container.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="chamfer.Container.GetAdjacent">
 <code class="sig-name descname">GetAdjacent</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.Container.GetAdjacent" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>reserved</em></p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="chamfer.Container.MoveNext">
 <code class="sig-name descname">MoveNext</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.Container.MoveNext" title="Permalink to this definition">¶</a></dt>
 <dd><p>Swap this and the next sibling container.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="chamfer.Container.MovePrev">
 <code class="sig-name descname">MovePrev</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.Container.MovePrev" title="Permalink to this definition">¶</a></dt>
 <dd><p>Swap this and the previous sibling container.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="chamfer.Container.Move">
-<code class="sig-name descname">Move</code><span class="sig-paren">(</span><em class="sig-param">container</em><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.Container.Move" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">Move</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">container</span></em><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.Container.Move" title="Permalink to this definition">¶</a></dt>
 <dd><p>Move this container under to a new parent, <em>container</em>.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="chamfer.Container.Focus">
 <code class="sig-name descname">Focus</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.Container.Focus" title="Permalink to this definition">¶</a></dt>
-<dd><p>Focus the container.</p>
+<dd><p>Focus the container. If the container is in another workspace, a workspace switch will occur. Changing workspaces is also possible by focusing the root container of the target workspace.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="chamfer.Container.Kill">
 <code class="sig-name descname">Kill</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.Container.Kill" title="Permalink to this definition">¶</a></dt>
 <dd><p>Close the client and kill the container.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="chamfer.Container.ShiftLayout">
-<code class="sig-name descname">ShiftLayout</code><span class="sig-paren">(</span><em class="sig-param">layout</em><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.Container.ShiftLayout" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">ShiftLayout</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">layout</span></em><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.Container.ShiftLayout" title="Permalink to this definition">¶</a></dt>
 <dd><p>Shift the container layout to a new <em>layout</em> indicated by <a class="reference internal" href="#chamfer.layout" title="chamfer.layout"><code class="xref py py-class docutils literal notranslate"><span class="pre">layout</span></code></a>. Most prominently used to transition between vertical and horizontal container splittings. May also be used to force some of the changed container parameters to take effect, such as changes to <a class="reference internal" href="#chamfer.Container.canvasOffset" title="chamfer.Container.canvasOffset"><code class="xref py py-attr docutils literal notranslate"><span class="pre">canvasOffset</span></code></a> etc., whicn for performance reasons will not result in an automatic update.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="chamfer.Container.SetFullscreen">
-<code class="sig-name descname">SetFullscreen</code><span class="sig-paren">(</span><em class="sig-param">toggle</em><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.Container.SetFullscreen" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">SetFullscreen</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">toggle</span></em><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.Container.SetFullscreen" title="Permalink to this definition">¶</a></dt>
 <dd><p>Move this container to a fullscreen mode, or back to normal depending on the value of <em>toggle</em> (true, false).</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="chamfer.Container.SetStacked">
-<code class="sig-name descname">SetStacked</code><span class="sig-paren">(</span><em class="sig-param">toggle</em><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.Container.SetStacked" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">SetStacked</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">toggle</span></em><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.Container.SetStacked" title="Permalink to this definition">¶</a></dt>
 <dd><p>Toggle container stacking inside this container. If <a class="reference internal" href="#chamfer.Container.layout" title="chamfer.Container.layout"><code class="xref py py-attr docutils literal notranslate"><span class="pre">layout</span></code></a> is equal to <a class="reference internal" href="#chamfer.layout.VSPLIT" title="chamfer.layout.VSPLIT"><code class="xref py py-attr docutils literal notranslate"><span class="pre">chamfer.layout.VSPLIT</span></code></a>, the containers will be tabbed, and can be cycled horizontally. Otherwise, the containers are stacked, and are vertically cycled.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="chamfer.Container.IsFloating">
 <code class="sig-name descname">IsFloating</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.Container.IsFloating" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns true if this is a floating container.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="chamfer.Container.IsAlive">
 <code class="sig-name descname">IsAlive</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.Container.IsAlive" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns true if the container still exists, i.e. it has not been removed.</p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
+<dt id="chamfer.Container.name">
+<code class="sig-name descname">name</code><a class="headerlink" href="#chamfer.Container.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Name label of the container. Workspaces are identified by their root container name label.</p>
+</dd></dl>
+
+<dl class="py attribute">
 <dt id="chamfer.Container.canvasOffset">
 <code class="sig-name descname">canvasOffset</code><a class="headerlink" href="#chamfer.Container.canvasOffset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Tiled container position offset. This is a tuple of two values between 0 and 1 for horizontal and vertical directions, indicating the position offset of the container in the units of full screen widths/heights. A value of zero implies no offset, while a value of 1 displaces the container one full screen width or height. As an example, a value of <code class="docutils literal notranslate"><span class="pre">(-0.1,0)</span></code> implies a displacement of 10% of the screen width to the left.</p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="chamfer.Container.canvasExtent">
 <code class="sig-name descname">canvasExtent</code><a class="headerlink" href="#chamfer.Container.canvasExtent" title="Permalink to this definition">¶</a></dt>
 <dd><p>Tiled container size extension. See <a class="reference internal" href="#chamfer.Container.canvasOffset" title="chamfer.Container.canvasOffset"><code class="xref py py-attr docutils literal notranslate"><span class="pre">canvasOffset</span></code></a> for details. In this case, a value of <code class="docutils literal notranslate"><span class="pre">(-0.1,0)</span></code> would imply a contraction of 10% of the screen width towards the left side of the container. Likewise <code class="docutils literal notranslate"><span class="pre">(0,0.2)</span></code> expands the container vertically 20% of the screen height downwards.</p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="chamfer.Container.margin">
 <code class="sig-name descname">margin</code><a class="headerlink" href="#chamfer.Container.margin" title="Permalink to this definition">¶</a></dt>
 <dd><p>A tuple of two values, one for horizontal and vertical screen dimensions. A positive non-zero value will apply a gap between the containers in order to give the compositor space to render the decorations around the client windows. The units are in full screen widths (and widths only, to preserve the aspect). Setting <code class="docutils literal notranslate"><span class="pre">margin</span> <span class="pre">=</span> <span class="pre">(0.015,0.015)</span></code> would inset the container by 1.5% of the screen width horizontally and vertically.</p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="chamfer.Container.size">
 <code class="sig-name descname">size</code><a class="headerlink" href="#chamfer.Container.size" title="Permalink to this definition">¶</a></dt>
 <dd><p>A tuple of two values for the size of the container and space reserved in horizontal and vertical screen direction. The units are widths and heights of the parent container: for instance, a value of <code class="docutils literal notranslate"><span class="pre">(0.7,1)</span></code> reserves 70% of the total horizontal and 100% of the vertical space given by the parent. If only one container exists, the value will always be <code class="docutils literal notranslate"><span class="pre">(1,1)</span></code>. The value is automatically updated as the surrounding layout changes. For example, the first container will have a size of <code class="docutils literal notranslate"><span class="pre">(1,1)</span></code>. Creating a second container will split the space in half, giving both containers a size <code class="docutils literal notranslate"><span class="pre">(0.5,1)</span></code> (in case of vertical splitting). User may then adjust the size of one of the containers to <code class="docutils literal notranslate"><span class="pre">(0.7,1)</span></code>, which will automatically assign the other container a size <code class="docutils literal notranslate"><span class="pre">(0.3,1)</span></code>.</p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="chamfer.Container.minSize">
 <code class="sig-name descname">minSize</code><a class="headerlink" href="#chamfer.Container.minSize" title="Permalink to this definition">¶</a></dt>
 <dd><p>Minimum size that the container may shrink to while making space for other containers. A tuple of two values, one for the each dimension of the screen. The units are widths and heights of the full screen. <code class="docutils literal notranslate"><span class="pre">minSize</span></code> of <code class="docutils literal notranslate"><span class="pre">(0.3,0)</span></code> will always keep the container width at least 30% of the full screen width, while <code class="docutils literal notranslate"><span class="pre">(1,0)</span></code> will make the container always occupy the full width of the screen. In case the space within the parent container runs out, containers will automatically start overlapping each other in a stacking manner.</p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="chamfer.Container.maxSize">
 <code class="sig-name descname">maxSize</code><a class="headerlink" href="#chamfer.Container.maxSize" title="Permalink to this definition">¶</a></dt>
 <dd><p>Maximum size that the container may expand to when there is space available. See <a class="reference internal" href="#chamfer.Container.minSize" title="chamfer.Container.minSize"><code class="xref py py-attr docutils literal notranslate"><span class="pre">minSize</span></code></a> for details.</p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="chamfer.Container.fullscreen">
 <code class="sig-name descname">fullscreen</code><a class="headerlink" href="#chamfer.Container.fullscreen" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read only fullscreen status: true if this container is in fullscreen mode, false otherwise.</p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="chamfer.Container.stacked">
 <code class="sig-name descname">stacked</code><a class="headerlink" href="#chamfer.Container.stacked" title="Permalink to this definition">¶</a></dt>
-<dd><p>Read only container stacking status: true if containers inside this container are stacked</p>
+<dd><p>Read only container stacking status: true if containers inside this container are stacked.</p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
+<dt id="chamfer.Container.titleBar">
+<code class="sig-name descname">titleBar</code><a class="headerlink" href="#chamfer.Container.titleBar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Title bar placement for this container, see <a class="reference internal" href="#chamfer.titleBar" title="chamfer.titleBar"><code class="xref py py-class docutils literal notranslate"><span class="pre">titleBar</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py attribute">
 <dt id="chamfer.Container.shaderFlags">
 <code class="sig-name descname">shaderFlags</code><a class="headerlink" href="#chamfer.Container.shaderFlags" title="Permalink to this definition">¶</a></dt>
 <dd><p>User supplied value that will be passed on to the shaders as a push constant. See <a class="reference internal" href="#chamfer.shaderFlag" title="chamfer.shaderFlag"><code class="xref py py-class docutils literal notranslate"><span class="pre">shaderFlag</span></code></a> for the list of bit flags automatically managed by Chamferwm. Note that all bits below <a class="reference internal" href="#chamfer.shaderFlag.USER_BIT" title="chamfer.shaderFlag.USER_BIT"><code class="xref py py-attr docutils literal notranslate"><span class="pre">USER_BIT</span></code></a> are reserved for use by Chamferwm.</p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="chamfer.Container.wm_name">
 <code class="sig-name descname">wm_name</code><a class="headerlink" href="#chamfer.Container.wm_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Current title of the client window. Read only.</p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="chamfer.Container.wm_class">
 <code class="sig-name descname">wm_class</code><a class="headerlink" href="#chamfer.Container.wm_class" title="Permalink to this definition">¶</a></dt>
 <dd><p>Current class name of the client window. Read only.</p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="chamfer.Container.vertexShader">
 <code class="sig-name descname">vertexShader</code><a class="headerlink" href="#chamfer.Container.vertexShader" title="Permalink to this definition">¶</a></dt>
 <dd><p>File name of the vertex shader to be used to render this client. The name of the file will be matched to the files found in the shader lookup directories. Default <code class="docutils literal notranslate"><span class="pre">vertexShader</span> <span class="pre">=</span> <span class="pre">&quot;default_vertex.spv&quot;</span></code>.</p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="chamfer.Container.geometryShader">
 <code class="sig-name descname">geometryShader</code><a class="headerlink" href="#chamfer.Container.geometryShader" title="Permalink to this definition">¶</a></dt>
 <dd><p>File name of the geometry shader. See <a class="reference internal" href="#chamfer.Container.vertexShader" title="chamfer.Container.vertexShader"><code class="xref py py-attr docutils literal notranslate"><span class="pre">vertexShader</span></code></a> for details.</p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="chamfer.Container.fragmentShader">
 <code class="sig-name descname">fragmentShader</code><a class="headerlink" href="#chamfer.Container.fragmentShader" title="Permalink to this definition">¶</a></dt>
 <dd><p>File name of the geometry shader. See <a class="reference internal" href="#chamfer.Container.vertexShader" title="chamfer.Container.vertexShader"><code class="xref py py-attr docutils literal notranslate"><span class="pre">vertexShader</span></code></a> for details.</p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="chamfer.Container.layout">
 <code class="sig-name descname">layout</code><a class="headerlink" href="#chamfer.Container.layout" title="Permalink to this definition">¶</a></dt>
 <dd><p>Current tiling layout of the container. One of the values from <a class="reference internal" href="#chamfer.layout" title="chamfer.layout"><code class="xref py py-class docutils literal notranslate"><span class="pre">chamfer.layout</span></code></a>. Layout transitions are handled by calling <a class="reference internal" href="#chamfer.Container.ShiftLayout" title="chamfer.Container.ShiftLayout"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ShiftLayout()</span></code></a> with the desired new layout. By default, the container will be created in <a class="reference internal" href="#chamfer.layout.VSPLIT" title="chamfer.layout.VSPLIT"><code class="xref py py-attr docutils literal notranslate"><span class="pre">chamfer.layout.VSPLIT</span></code></a> mode.</p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="chamfer.Container.floatingMode">
 <code class="sig-name descname">floatingMode</code><a class="headerlink" href="#chamfer.Container.floatingMode" title="Permalink to this definition">¶</a></dt>
 <dd><p>Determine in which mode (tiled or floating) the client shall be created. See <a class="reference internal" href="#chamfer.floatingMode" title="chamfer.floatingMode"><code class="xref py py-class docutils literal notranslate"><span class="pre">floatingMode</span></code></a> for possible values. Default = <a class="reference internal" href="#chamfer.floatingMode.AUTOMATIC" title="chamfer.floatingMode.AUTOMATIC"><code class="xref py py-attr docutils literal notranslate"><span class="pre">AUTOMATIC</span></code></a>.</p>
@@ -354,17 +372,17 @@
 
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="chamfer.layout">
 <em class="property">class </em><code class="sig-prename descclassname">chamfer.</code><code class="sig-name descname">layout</code><span class="sig-paren">(</span><em class="sig-param">enum.Enum</em><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.layout" title="Permalink to this definition">¶</a></dt>
 <dd><p>Possible values of <a class="reference internal" href="#chamfer.Container.layout" title="chamfer.Container.layout"><code class="xref py py-attr docutils literal notranslate"><span class="pre">layout</span></code></a> and the <em>layout</em> parameter of <a class="reference internal" href="#chamfer.Container.ShiftLayout" title="chamfer.Container.ShiftLayout"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ShiftLayout()</span></code></a>, dictating the splitting mode of the container.</p>
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="chamfer.layout.VSPLIT">
 <code class="sig-name descname">VSPLIT</code><a class="headerlink" href="#chamfer.layout.VSPLIT" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implies a vertically split container. Containers will be placed in a horizontal row.</p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="chamfer.layout.HSPLIT">
 <code class="sig-name descname">HSPLIT</code><a class="headerlink" href="#chamfer.layout.HSPLIT" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implies a horizontally split container. Containers will be placed in a vertical column.</p>
@@ -372,23 +390,23 @@
 
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="chamfer.floatingMode">
 <em class="property">class </em><code class="sig-prename descclassname">chamfer.</code><code class="sig-name descname">floatingMode</code><span class="sig-paren">(</span><em class="sig-param">enum.Enum</em><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.floatingMode" title="Permalink to this definition">¶</a></dt>
 <dd><p>Possible values of <a class="reference internal" href="#chamfer.Container.floatingMode" title="chamfer.Container.floatingMode"><code class="xref py py-attr docutils literal notranslate"><span class="pre">floatingMode</span></code></a>, dictating the mode in which the client shall be created.</p>
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="chamfer.floatingMode.AUTOMATIC">
 <code class="sig-name descname">AUTOMATIC</code><a class="headerlink" href="#chamfer.floatingMode.AUTOMATIC" title="Permalink to this definition">¶</a></dt>
 <dd><p>Whether the client will be created in a floating or tiled mode will be determined automatically from its client attributes.</p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="chamfer.floatingMode.ALWAYS">
 <code class="sig-name descname">ALWAYS</code><a class="headerlink" href="#chamfer.floatingMode.ALWAYS" title="Permalink to this definition">¶</a></dt>
 <dd><p>The client is always created in floating mode, regardless of its client attributes.</p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="chamfer.floatingMode.NEVER">
 <code class="sig-name descname">NEVER</code><a class="headerlink" href="#chamfer.floatingMode.NEVER" title="Permalink to this definition">¶</a></dt>
 <dd><p>The client is always created in a tiled container, regardless of its client attributes.</p>
@@ -396,17 +414,17 @@
 
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="chamfer.property">
 <em class="property">class </em><code class="sig-prename descclassname">chamfer.</code><code class="sig-name descname">property</code><a class="headerlink" href="#chamfer.property" title="Permalink to this definition">¶</a></dt>
 <dd><p>Various client property identifiers.</p>
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="chamfer.property.NAME">
 <code class="sig-name descname">NAME</code><a class="headerlink" href="#chamfer.property.NAME" title="Permalink to this definition">¶</a></dt>
 <dd><p>Client window title.</p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="chamfer.property.CLASS">
 <code class="sig-name descname">CLASS</code><a class="headerlink" href="#chamfer.property.CLASS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Client window class name.</p>
@@ -414,35 +432,35 @@
 
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="chamfer.titleBar">
 <em class="property">class </em><code class="sig-prename descclassname">chamfer.</code><code class="sig-name descname">titleBar</code><a class="headerlink" href="#chamfer.titleBar" title="Permalink to this definition">¶</a></dt>
 <dd><p>Title bar placement. By default the title bars are placed on top of the client.</p>
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="chamfer.titleBar.NONE">
 <code class="sig-name descname">NONE</code><a class="headerlink" href="#chamfer.titleBar.NONE" title="Permalink to this definition">¶</a></dt>
 <dd><p>Hide title bar</p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="chamfer.titleBar.LEFT">
 <code class="sig-name descname">LEFT</code><a class="headerlink" href="#chamfer.titleBar.LEFT" title="Permalink to this definition">¶</a></dt>
 <dd><p>Title bar placed at the left border of client</p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="chamfer.titleBar.TOP">
 <code class="sig-name descname">TOP</code><a class="headerlink" href="#chamfer.titleBar.TOP" title="Permalink to this definition">¶</a></dt>
 <dd><p>Title bar placed at the left border of client</p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="chamfer.titleBar.RIGHT">
 <code class="sig-name descname">RIGHT</code><a class="headerlink" href="#chamfer.titleBar.RIGHT" title="Permalink to this definition">¶</a></dt>
 <dd><p>Title bar placed at the left border of client</p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="chamfer.titleBar.BOTTOM">
 <code class="sig-name descname">BOTTOM</code><a class="headerlink" href="#chamfer.titleBar.BOTTOM" title="Permalink to this definition">¶</a></dt>
 <dd><p>Title bar placed at the left border of client</p>
@@ -450,107 +468,113 @@
 
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="chamfer.Backend">
 <em class="property">class </em><code class="sig-prename descclassname">chamfer.</code><code class="sig-name descname">Backend</code><a class="headerlink" href="#chamfer.Backend" title="Permalink to this definition">¶</a></dt>
-<dd><p>A user implemented interface to define routines for various window management related events. Moreover, <a class="reference internal" href="#chamfer.Backend" title="chamfer.Backend"><code class="xref py py-class docutils literal notranslate"><span class="pre">Backend</span></code></a> provides methods for ...</p>
-<dl class="method">
+<dd><p>A user implemented interface to define routines for various window management related events. Moreover, <a class="reference internal" href="#chamfer.Backend" title="chamfer.Backend"><code class="xref py py-class docutils literal notranslate"><span class="pre">Backend</span></code></a> provides methods for …</p>
+<dl class="py method">
 <dt id="chamfer.Backend.OnSetupKeys">
-<code class="sig-name descname">OnSetupKeys</code><span class="sig-paren">(</span><em class="sig-param">debug</em><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.Backend.OnSetupKeys" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">OnSetupKeys</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">debug</span></em><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.Backend.OnSetupKeys" title="Permalink to this definition">¶</a></dt>
 <dd><p>Called as soon as the backend is initialized. Ideal for setting up the keybindings for example. <em>debug</em> will tell if testing backend (not a real window manager) was created.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="chamfer.Backend.OnCreateContainer">
 <code class="sig-name descname">OnCreateContainer</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.Backend.OnCreateContainer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Called to request a new instance of <a class="reference internal" href="#chamfer.Container" title="chamfer.Container"><code class="xref py py-class docutils literal notranslate"><span class="pre">Container</span></code></a>. The implementation is expected to return an instance of this class.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="chamfer.Backend.OnKeyPress">
-<code class="sig-name descname">OnKeyPress</code><span class="sig-paren">(</span><em class="sig-param">keyId</em><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.Backend.OnKeyPress" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">OnKeyPress</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">keyId</span></em><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.Backend.OnKeyPress" title="Permalink to this definition">¶</a></dt>
 <dd><p>Called to report a press of a key that was mapped with either <a class="reference internal" href="#chamfer.Backend.BindKey" title="chamfer.Backend.BindKey"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Backend.BindKey()</span></code></a> or <a class="reference internal" href="#chamfer.Backend.MapKey" title="chamfer.Backend.MapKey"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Backend.MapKey()</span></code></a>. <em>keyId</em> is the user chosen identifier for the reported key.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="chamfer.Backend.OnKeyRelease">
-<code class="sig-name descname">OnKeyRelease</code><span class="sig-paren">(</span><em class="sig-param">keyId</em><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.Backend.OnKeyRelease" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">OnKeyRelease</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">keyId</span></em><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.Backend.OnKeyRelease" title="Permalink to this definition">¶</a></dt>
 <dd><p>Called to report a release of a key. See <a class="reference internal" href="#chamfer.Backend.OnKeyPress" title="chamfer.Backend.OnKeyPress"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Backend.OnKeyPress()</span></code></a>.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="chamfer.Backend.OnTimer">
 <code class="sig-name descname">OnTimer</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.Backend.OnTimer" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>reserved</em></p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="chamfer.Backend.OnExit">
 <code class="sig-name descname">OnExit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.Backend.OnExit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Called when user quits the window manager.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="chamfer.Backend.GetFocus">
 <code class="sig-name descname">GetFocus</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.Backend.GetFocus" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the currently focused container <a class="reference internal" href="#chamfer.Container" title="chamfer.Container"><code class="xref py py-class docutils literal notranslate"><span class="pre">chamfer.Container</span></code></a>.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="chamfer.Backend.GetRoot">
-<code class="sig-name descname">GetRoot</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.Backend.GetRoot" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the root container <a class="reference internal" href="#chamfer.Container" title="chamfer.Container"><code class="xref py py-class docutils literal notranslate"><span class="pre">chamfer.Container</span></code></a>.</p>
+<code class="sig-name descname">GetRoot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.Backend.GetRoot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the root container <a class="reference internal" href="#chamfer.Container" title="chamfer.Container"><code class="xref py py-class docutils literal notranslate"><span class="pre">chamfer.Container</span></code></a>. If <em>name</em> is specified, return the root container belonging to that workspace. Otherwise return the root of the currently focused container. If workspace does not exist, it will be created.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="chamfer.Backend.BindKey">
-<code class="sig-name descname">BindKey</code><span class="sig-paren">(</span><em class="sig-param">symbol</em>, <em class="sig-param">mask</em>, <em class="sig-param">keyId</em><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.Backend.BindKey" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bind key <em>symbol</em> with modifier <em>mask</em>. The key combination will be exclusive to Chamferwm, and won't be reported to any of the clients. Whenever the bound key is pressed, <a class="reference internal" href="#chamfer.Backend.OnKeyPress" title="chamfer.Backend.OnKeyPress"><code class="xref py py-meth docutils literal notranslate"><span class="pre">chamfer.Backend.OnKeyPress()</span></code></a> with <em>keyId</em> is called. Likewise, <a class="reference internal" href="#chamfer.Backend.OnKeyRelease" title="chamfer.Backend.OnKeyRelease"><code class="xref py py-meth docutils literal notranslate"><span class="pre">chamfer.Backend.OnKeyRelease()</span></code></a> is called when the pressed key is released.</p>
+<code class="sig-name descname">BindKey</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">symbol</span></em>, <em class="sig-param"><span class="n">mask</span></em>, <em class="sig-param"><span class="n">keyId</span></em><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.Backend.BindKey" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bind key <em>symbol</em> with modifier <em>mask</em>. The key combination will be exclusive to Chamferwm, and won’t be reported to any of the clients. Whenever the bound key is pressed, <a class="reference internal" href="#chamfer.Backend.OnKeyPress" title="chamfer.Backend.OnKeyPress"><code class="xref py py-meth docutils literal notranslate"><span class="pre">chamfer.Backend.OnKeyPress()</span></code></a> with <em>keyId</em> is called. Likewise, <a class="reference internal" href="#chamfer.Backend.OnKeyRelease" title="chamfer.Backend.OnKeyRelease"><code class="xref py py-meth docutils literal notranslate"><span class="pre">chamfer.Backend.OnKeyRelease()</span></code></a> is called when the pressed key is released.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="chamfer.Backend.MapKey">
-<code class="sig-name descname">MapKey</code><span class="sig-paren">(</span><em class="sig-param">symbol</em>, <em class="sig-param">mask</em>, <em class="sig-param">keyId</em><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.Backend.MapKey" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">MapKey</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">symbol</span></em>, <em class="sig-param"><span class="n">mask</span></em>, <em class="sig-param"><span class="n">keyId</span></em><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.Backend.MapKey" title="Permalink to this definition">¶</a></dt>
 <dd><p>Unlike <a class="reference internal" href="#chamfer.Backend.BindKey" title="chamfer.Backend.BindKey"><code class="xref py py-meth docutils literal notranslate"><span class="pre">chamfer.Backend.BindKey()</span></code></a>, mapped keys are not exclusive to Chamferwm, and not reported until <a class="reference internal" href="#chamfer.Backend.GrabKeyboard" title="chamfer.Backend.GrabKeyboard"><code class="xref py py-meth docutils literal notranslate"><span class="pre">chamfer.Backend.GrabKeyboard()</span></code></a> is called. See <a class="reference internal" href="#chamfer.Backend.GrabKeyboard" title="chamfer.Backend.GrabKeyboard"><code class="xref py py-meth docutils literal notranslate"><span class="pre">chamfer.Backend.GrabKeyboard()</span></code></a> for details.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="chamfer.Backend.GrabKeyboard">
-<code class="sig-name descname">GrabKeyboard</code><span class="sig-paren">(</span><em class="sig-param">enable</em><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.Backend.GrabKeyboard" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">GrabKeyboard</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">enable</span></em><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.Backend.GrabKeyboard" title="Permalink to this definition">¶</a></dt>
 <dd><p>Once keyboard is grabbed, keys mapped using <a class="reference internal" href="#chamfer.Backend.MapKey" title="chamfer.Backend.MapKey"><code class="xref py py-meth docutils literal notranslate"><span class="pre">chamfer.Backend.MapKey()</span></code></a> besides the other key bindings are reported. During this, no key input whatsoever will be reported to the clients. GrabKeyboard method is useful for implementing functionality such as <em>task switcher</em>, which could be operating for as long as some modifier key is being held down.</p>
 </dd></dl>
 
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="chamfer.BindBackend">
-<code class="sig-prename descclassname">chamfer.</code><code class="sig-name descname">BindBackend</code><span class="sig-paren">(</span><em class="sig-param">backend</em><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.BindBackend" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">chamfer.</code><code class="sig-name descname">BindBackend</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">backend</span></em><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.BindBackend" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bind your instance of <a class="reference internal" href="#chamfer.Backend" title="chamfer.Backend"><code class="xref py py-class docutils literal notranslate"><span class="pre">Backend</span></code></a> class implementation, assigned by a call to <a class="reference internal" href="#chamfer.BindBackend" title="chamfer.BindBackend"><code class="xref py py-meth docutils literal notranslate"><span class="pre">BindBackend()</span></code></a>. Should be done during initialization.</p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="chamfer.backend">
 <code class="sig-prename descclassname">chamfer.</code><code class="sig-name descname">backend</code><a class="headerlink" href="#chamfer.backend" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bound backend class object used by Chamferwm. Read only attribute.</p>
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="chamfer.shaderFlag">
 <em class="property">class </em><code class="sig-prename descclassname">chamfer.</code><code class="sig-name descname">shaderFlag</code><span class="sig-paren">(</span><em class="sig-param">enum.Enum</em><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.shaderFlag" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bit flags for the shader push constant, accessible with <a class="reference internal" href="#chamfer.Container.shaderFlags" title="chamfer.Container.shaderFlags"><code class="xref py py-attr docutils literal notranslate"><span class="pre">shaderFlags</span></code></a>.</p>
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="chamfer.shaderFlag.FOCUS">
 <code class="sig-name descname">FOCUS</code><a class="headerlink" href="#chamfer.shaderFlag.FOCUS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Client focus bit, set automatically by Chamferwm.</p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="chamfer.shaderFlag.FLOATING">
 <code class="sig-name descname">FLOATING</code><a class="headerlink" href="#chamfer.shaderFlag.FLOATING" title="Permalink to this definition">¶</a></dt>
 <dd><p>Floating client bit, set automatically by Chamferwm.</p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
+<dt id="chamfer.shaderFlag.STACKED">
+<code class="sig-name descname">STACKED</code><a class="headerlink" href="#chamfer.shaderFlag.STACKED" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stacked client bit, set automatically by Chamferwm.</p>
+</dd></dl>
+
+<dl class="py attribute">
 <dt id="chamfer.shaderFlag.USER_BIT">
 <code class="sig-name descname">USER_BIT</code><a class="headerlink" href="#chamfer.shaderFlag.USER_BIT" title="Permalink to this definition">¶</a></dt>
 <dd><p>First bit reserved for user defined flags.</p>
@@ -558,47 +582,59 @@
 
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="chamfer.Compositor">
 <em class="property">class </em><code class="sig-prename descclassname">chamfer.</code><code class="sig-name descname">Compositor</code><a class="headerlink" href="#chamfer.Compositor" title="Permalink to this definition">¶</a></dt>
 <dd><p>A user implemented interface to define routines for various compositing related events.</p>
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="chamfer.Compositor.deviceIndex">
 <code class="sig-name descname">deviceIndex</code><a class="headerlink" href="#chamfer.Compositor.deviceIndex" title="Permalink to this definition">¶</a></dt>
 <dd><p>GPU to use by its index. By default the first device in the list of enumerated GPUs will be used. May be overriden by command line arguments.</p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="chamfer.Compositor.debugLayers">
 <code class="sig-name descname">debugLayers</code><a class="headerlink" href="#chamfer.Compositor.debugLayers" title="Permalink to this definition">¶</a></dt>
 <dd><p>Enable Vulkan debug layers. May be overriden by command line arguments.</p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="chamfer.Compositor.scissoring">
 <code class="sig-name descname">scissoring</code><a class="headerlink" href="#chamfer.Compositor.scissoring" title="Permalink to this definition">¶</a></dt>
 <dd><p>Enable or disable scissoring optimizations. By default the optimization is enabled. If during compositing missing regions or flickering occur, the scissoring optimization can be disabled. The option <code class="docutils literal notranslate"><span class="pre">--no-scissoring</span></code> forces this false.</p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
+<dt id="chamfer.Compositor.hostMemoryImport">
+<code class="sig-name descname">hostMemoryImport</code><a class="headerlink" href="#chamfer.Compositor.hostMemoryImport" title="Permalink to this definition">¶</a></dt>
+<dd><p>Host shared memory import support.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="chamfer.Compositor.unredirOnFullscreen">
+<code class="sig-name descname">unredirOnFullscreen</code><a class="headerlink" href="#chamfer.Compositor.unredirOnFullscreen" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disable compositor while on fullscreen (not implemented).</p>
+</dd></dl>
+
+<dl class="py attribute">
 <dt id="chamfer.Compositor.enableAnimation">
 <code class="sig-name descname">enableAnimation</code><a class="headerlink" href="#chamfer.Compositor.enableAnimation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Enable or disable transition and movement animations. Enabled by default.</p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="chamfer.Compositor.animationDuration">
 <code class="sig-name descname">animationDuration</code><a class="headerlink" href="#chamfer.Compositor.animationDuration" title="Permalink to this definition">¶</a></dt>
 <dd><p>Total duration of the transition and movement animations. Default 0.3 seconds.</p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="chamfer.Compositor.fontName">
 <code class="sig-name descname">fontName</code><a class="headerlink" href="#chamfer.Compositor.fontName" title="Permalink to this definition">¶</a></dt>
-<dd><p>Font face to use for title.</p>
+<dd><p>Font face to use for title bars.</p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="chamfer.Compositor.fontSize">
 <code class="sig-name descname">fontSize</code><a class="headerlink" href="#chamfer.Compositor.fontSize" title="Permalink to this definition">¶</a></dt>
 <dd><p>Title bar font size in points.</p>
@@ -606,13 +642,13 @@
 
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="chamfer.BindCompositor">
-<code class="sig-prename descclassname">chamfer.</code><code class="sig-name descname">BindCompositor</code><span class="sig-paren">(</span><em class="sig-param">compositor</em><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.BindCompositor" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">chamfer.</code><code class="sig-name descname">BindCompositor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">compositor</span></em><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.BindCompositor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bind your instance of <a class="reference internal" href="#chamfer.Compositor" title="chamfer.Compositor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Compositor</span></code></a> class implementation. Should be done during initialization.</p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="chamfer.compositor">
 <code class="sig-prename descclassname">chamfer.</code><code class="sig-name descname">compositor</code><a class="headerlink" href="#chamfer.compositor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bound compositor class object used by Chamferwm, assigned by a call to <a class="reference internal" href="#chamfer.BindCompositor" title="chamfer.BindCompositor"><code class="xref py py-meth docutils literal notranslate"><span class="pre">BindCompositor()</span></code></a>. Read only attribute.</p>
@@ -669,7 +705,7 @@
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
 
 
 
@@ -686,7 +722,7 @@
       &copy;2019, Jasper Parkkila.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.0.3</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>
