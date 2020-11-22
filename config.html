@@ -4,6 +4,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Configuration &#8212; chamferwm git documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -251,6 +252,12 @@
 </dd></dl>
 
 <dl class="py method">
+<dt id="chamfer.Container.SetFloating">
+<code class="sig-name descname">SetFloating</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">toggle</span></em><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.Container.SetFloating" title="Permalink to this definition">¶</a></dt>
+<dd><p>Toggle between tiled and floating modes.</p>
+</dd></dl>
+
+<dl class="py method">
 <dt id="chamfer.Container.IsFloating">
 <code class="sig-name descname">IsFloating</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.Container.IsFloating" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns true if this is a floating container.</p>
@@ -259,7 +266,7 @@
 <dl class="py method">
 <dt id="chamfer.Container.IsAlive">
 <code class="sig-name descname">IsAlive</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#chamfer.Container.IsAlive" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns true if the container still exists, i.e. it has not been removed.</p>
+<dd><p>Returns true if the container still exists, i.e. it has not been removed. Use of a removed container will raise an exception.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -722,7 +729,7 @@
       &copy;2019-2020, Jasper Parkkila.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.0.3</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>
