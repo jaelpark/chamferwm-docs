@@ -106,6 +106,9 @@ ninja
 <dt><kbd><span class="option">-d</span>, <span class="option">--debug-backend</span></kbd></dt>
 <dd><p>Create a test environment for the compositor engine without redirection. The application will not act as a window manager.</p>
 </dd>
+<dt><kbd><span class="option">-C</span>, <span class="option">--standalone-compositor</span></kbd></dt>
+<dd><p>Use compositor for external window managers. (Work in progress)</p>
+</dd>
 </dl>
 <p><strong>Compositor</strong></p>
 <dl class="option-list">
@@ -124,14 +127,14 @@ ninja
 <dt><kbd><span class="option">--no-scissoring</span></kbd></dt>
 <dd><p>Disable scissoring optimization.</p>
 </dd>
-<dt><kbd><span class="option">--no-host-memory-import</span></kbd></dt>
-<dd><p>Disable host shared memory import.</p>
+<dt><kbd><span class="option">-m</span>, <span class="option">--memory-import-mode=<var>m</var></span></kbd></dt>
+<dd><p>Memory import mode: 0: DMA-buf import, 1: Host memory import, 2: CPU import (slow, compatibility)</p>
 </dd>
 <dt><kbd><span class="option">--unredir-on-fullscreen</span></kbd></dt>
 <dd><p>Unredirect a fullscreen window bypassing the compositor to improve performance.</p>
 </dd>
 <dt><kbd><span class="option">--shader-path=<var>path</var></span></kbd></dt>
-<dd><p>Shader lookup path. SPIR-V shader objects are identified by an '.spv' extension. Multiple paths may be specified.</p>
+<dd><p>Shader lookup path. SPIR-V shader objects are identified by an ‘.spv’ extension. Multiple paths may be specified.</p>
 </dd>
 </dl>
 </div>
