@@ -6,13 +6,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Shaders and Appearance &#8212; chamferwm git documentation</title>
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="prev" title="Configuration" href="config.html" />
@@ -85,13 +84,13 @@
 <p>For each client, a single vertex is drawn. This vertex has no attributes, and the default vertex shader of Chamferwm simply passes it through to the geometry shader. From this single vertex the geometry shader then expands the necessary surfaces for the client according to the dimensions provided through the push constants. The following push constants are available, and are accessible in all shader stages:</p>
 <div class="literal-block-wrapper docutils container" id="clientpushconst">
 <div class="code-block-caption"><span class="caption-text">Available push constants for client rendering pipeline</span><a class="headerlink" href="#clientpushconst" title="Permalink to this code">¶</a></div>
-<div class="highlight-hlsl notranslate"><div class="highlight"><pre><span></span><span class="kt">float2</span> <span class="n">xy0</span><span class="p">;</span> <span class="c1">//normalized top-left corner location</span>
-<span class="kt">float2</span> <span class="n">xy1</span><span class="p">;</span> <span class="c1">//normalized bottom-right corner location</span>
-<span class="kt">float2</span> <span class="n">screen</span><span class="p">;</span> <span class="c1">//screen pixel dimensions</span>
-<span class="kt">float2</span> <span class="n">margin</span><span class="p">;</span> <span class="c1">//normalized gap margin in x and y directions</span>
-<span class="kt">float2</span> <span class="n">titlePad</span><span class="p">;</span> <span class="c1">//A vector indicating the location and size of the titlebar if any</span>
-<span class="kt">uint</span> <span class="n">flags</span><span class="p">;</span> <span class="c1">//flags such as whether client is focused</span>
-<span class="kt">float</span> <span class="n">time</span><span class="p">;</span> <span class="c1">//time in seconds since client creation</span>
+<div class="highlight-hlsl notranslate"><div class="highlight"><pre><span></span><span class="kt">float2</span><span class="w"> </span><span class="n">xy0</span><span class="p">;</span><span class="w"> </span><span class="c1">//normalized top-left corner location</span><span class="w"></span>
+<span class="kt">float2</span><span class="w"> </span><span class="n">xy1</span><span class="p">;</span><span class="w"> </span><span class="c1">//normalized bottom-right corner location</span><span class="w"></span>
+<span class="kt">float2</span><span class="w"> </span><span class="n">screen</span><span class="p">;</span><span class="w"> </span><span class="c1">//screen pixel dimensions</span><span class="w"></span>
+<span class="kt">float2</span><span class="w"> </span><span class="n">margin</span><span class="p">;</span><span class="w"> </span><span class="c1">//normalized gap margin in x and y directions</span><span class="w"></span>
+<span class="kt">float2</span><span class="w"> </span><span class="n">titlePad</span><span class="p">;</span><span class="w"> </span><span class="c1">//A vector indicating the location and size of the titlebar if any</span><span class="w"></span>
+<span class="kt">uint</span><span class="w"> </span><span class="n">flags</span><span class="p">;</span><span class="w"> </span><span class="c1">//flags such as whether client is focused</span><span class="w"></span>
+<span class="kt">float</span><span class="w"> </span><span class="n">time</span><span class="p">;</span><span class="w"> </span><span class="c1">//time in seconds since client creation</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -100,17 +99,17 @@
 <p>Text on the title bars and such is rendered using another pipeline, which defines a vertex shader and a fragment shader. A minimal vertex shader expects a position and a texture coordinate to sample the font atlas:</p>
 <div class="literal-block-wrapper docutils container" id="textvertex">
 <div class="code-block-caption"><span class="caption-text">Available vertex attributes for text rendering pipeline</span><a class="headerlink" href="#textvertex" title="Permalink to this code">¶</a></div>
-<div class="highlight-hlsl notranslate"><div class="highlight"><pre><span></span><span class="kt">float2</span> <span class="n">pos</span> <span class="o">:</span> <span class="n">POSITION</span><span class="p">;</span> <span class="c1">//normalized point location</span>
-<span class="kt">uint2</span> <span class="n">texc</span> <span class="o">:</span> <span class="n">TEXCOORD</span><span class="p">;</span> <span class="c1">//texture pixel coordinates</span>
+<div class="highlight-hlsl notranslate"><div class="highlight"><pre><span></span><span class="kt">float2</span><span class="w"> </span><span class="n">pos</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">POSITION</span><span class="p">;</span><span class="w"> </span><span class="c1">//normalized point location</span><span class="w"></span>
+<span class="kt">uint2</span><span class="w"> </span><span class="n">texc</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">TEXCOORD</span><span class="p">;</span><span class="w"> </span><span class="c1">//texture pixel coordinates</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
 <p>In HLSL the attributes are identified using the semantics <code class="docutils literal notranslate"><span class="pre">POSITION</span></code>, <code class="docutils literal notranslate"><span class="pre">TEXCOORD</span></code> etc. As with push constants, the vertex attributes may be declared as needed, and in any order. For text pipeline, following push constants are available:</p>
 <div class="literal-block-wrapper docutils container" id="textpushconst">
 <div class="code-block-caption"><span class="caption-text">Available push constants for text rendering pipeline</span><a class="headerlink" href="#textpushconst" title="Permalink to this code">¶</a></div>
-<div class="highlight-hlsl notranslate"><div class="highlight"><pre><span></span><span class="kt">float2</span> <span class="n">xy0</span><span class="p">;</span> <span class="c1">//normalized baseline location at the beginning of the text</span>
-<span class="kt">float2</span> <span class="n">screen</span><span class="p">;</span> <span class="c1">//screen pixel dimensions</span>
-<span class="kt">float2x2</span> <span class="n">transform</span><span class="p">;</span> <span class="c1">//text transform matrix, generally for the rotation</span>
+<div class="highlight-hlsl notranslate"><div class="highlight"><pre><span></span><span class="kt">float2</span><span class="w"> </span><span class="n">xy0</span><span class="p">;</span><span class="w"> </span><span class="c1">//normalized baseline location at the beginning of the text</span><span class="w"></span>
+<span class="kt">float2</span><span class="w"> </span><span class="n">screen</span><span class="p">;</span><span class="w"> </span><span class="c1">//screen pixel dimensions</span><span class="w"></span>
+<span class="kt">float2x2</span><span class="w"> </span><span class="n">transform</span><span class="p">;</span><span class="w"> </span><span class="c1">//text transform matrix, generally for the rotation</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -187,7 +186,7 @@
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
@@ -209,7 +208,7 @@
       &copy;2019-2020, Jasper Parkkila.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.4.0</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>

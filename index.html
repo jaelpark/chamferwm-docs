@@ -6,13 +6,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Chamferwm &#8212; chamferwm git documentation</title>
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Setup and Running" href="setup.html" />
@@ -37,11 +36,7 @@
 <p>Chamferwm is a dynamic tiling window manager with a built-in Vulkan based compositor. Besides aiming to be a fully featured and highly configurable window manager, significant effort is put to provide a complete control over the appearance of the desktop. With its shader based customization system, Chamferwm enables rendering of arbitrary window decorations, borders and effects, maximizing the potential for visual personalization.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>In case of open source graphics, the most recent version of Mesa is highly recommended. With older versions of Mesa, user may experience glitches or other graphical corruption.</p>
-</div>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p><code class="docutils literal notranslate"><span class="pre">VK_EXT_image_drm_format_modifier</span></code>, a vital Vulkan extension required to import DRM format modifiers from DMA buffers, is currently unavailable. As a result, Chamferwm must rely on shared memory access to read client window contents. Using shared memory access may be detrimental to performance at high client resolutions. This limination will persist for as long as the required extension remains unimplemented.</p>
+<p>In case of open source graphics, the most recent version of Mesa is highly recommended. With older versions of Mesa, one may experience glitches or other graphical corruption.</p>
 </div>
 <div class="section" id="features">
 <h2>Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h2>
@@ -145,7 +140,7 @@
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
@@ -167,7 +162,7 @@
       &copy;2019-2020, Jasper Parkkila.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.3.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.4.0</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>
